@@ -29,3 +29,4 @@ set showmatch
 " :tp - goes to the previous tag in that list.
 " :tf – goes to the function which is in the first of the list.
 " :tl – goes to the function which is in the last of the list
+"
