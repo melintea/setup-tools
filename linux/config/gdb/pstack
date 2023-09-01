@@ -1,0 +1,48 @@
+define prstack1
+	if $argc == 1
+		printf "[%u]: ", $arg0
+		#whatis/ptype EXPR
+		#info frame ADDR
+		info symbol $arg0
+	end
+end
+document prstack1
+Print one stack frame. Usage: prstack1 addr0
+end 
+
+
+define prstack9
+	if $argc > 0
+		prstack1 $arg0
+	end
+	if $argc > 1
+		prstack1 $arg1
+	end
+	if $argc > 2
+		prstack1 $arg2
+	end
+	if $argc > 3
+		prstack1 $arg3
+	end
+	if $argc > 4
+		prstack1 $arg4
+	end
+	if $argc > 5
+		prstack1 $arg5
+	end
+	if $argc > 6
+		prstack1 $arg6
+	end
+	if $argc > 7
+		prstack1 $arg7
+	end
+	if $argc > 8
+		prstack1 $arg8
+	end
+	if $argc > 9
+		prstack1 $arg9
+	end
+end
+document prstack9
+Print given stack. Usage: prstack addr0 addr1 ... addr9
+end 

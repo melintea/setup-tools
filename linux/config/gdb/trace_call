@@ -1,0 +1,17 @@
+#
+#
+#
+define trace_call
+    b $arg0
+        commands
+        bt full
+        continue
+        end
+end
+document trace_call
+Trace specified call with call stack to screen. Example:
+    set breakpoint pending on
+        set pagination off
+        set logging on
+    trace_call __pthread_create_2_1
+end

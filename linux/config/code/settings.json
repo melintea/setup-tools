@@ -1,0 +1,15 @@
+{
+    "_location_": ".config/Code/User/settings.json",
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "workbench.colorCustomizations": {
+
+        "editor.selectionBackground": "#ff0000",
+        "editor.selectionHighlightBackground":"#ff0000",
+        "editor.findMatchBackground":"#ff7b00",
+        "editor.findMatchHighlightBackground":"#ff7b00"
+    },
+    "editor.tokenColorCustomizations": {
+
+    },
+    "editor.fontSize": 16
+}

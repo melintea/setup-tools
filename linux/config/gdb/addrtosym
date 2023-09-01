@@ -1,0 +1,11 @@
+define addrtosym
+    if $argc == 1
+        printf "[%u]: ", $arg0
+        #whatis/ptype EXPR
+        #info frame ADDR
+        info symbol $arg0
+    end
+end
+document addrtosym
+Resolve the address (e.g. of one stack frame). Usage: addrtosym addr0
+end

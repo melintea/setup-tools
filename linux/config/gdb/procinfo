@@ -1,0 +1,33 @@
+define procinfo
+    printf "**\n** Process Info: \n**\n"
+    info proc
+    
+    printf "*\n* Libraries \n*\n"
+    info sharedlib
+    
+    printf "*\n* Memory Map \n*\n"
+    info target
+    
+    printf "*\n* Registers \n*\n"
+    info registers
+    
+    printf "*\n* Current Instructions \n*\n" 
+    x/16i $pc
+    
+    printf "*\n* Threads (basic) \n*\n"
+    info threads
+    thread apply all bt
+end
+document procinfo
+Infos about the debugee. 
+end
+
+
+define analyze
+    procinfo
+    
+    printf "*\n* Threads (full) \n*\n"
+    info threads
+    bt
+    thread apply all bt full
+end

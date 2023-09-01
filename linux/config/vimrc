@@ -1,0 +1,31 @@
+set visualbell
+set incsearch
+set hlsearch
+set smartcase
+set number
+" set wilmode=longest,list
+
+set smartindent
+" set expandtab
+" set preserveindent
+
+set cscopeverbose
+set showmatch
+
+"
+" highlight all words under cursor: g*
+
+
+"
+" ctags --sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q -R .
+" http://www.thegeekstuff.com/2009/04/ctags-taglist-vi-vim-editor-as-sourece-code-browser/
+" 
+"
+":ta /^symbol
+" Ctrl + ]
+" Ctrl + t
+" :ts – shows the list.
+" :tn – goes to the next tag in that list.
+" :tp - goes to the previous tag in that list.
+" :tf – goes to the function which is in the first of the list.
+" :tl – goes to the function which is in the last of the list
