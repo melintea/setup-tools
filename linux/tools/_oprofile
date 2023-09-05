@@ -1,0 +1,56 @@
+#!/bin/bash
+
+#
+# Profiling script for $WATCHPROG
+# Must be run as root
+#
+ 
+ 
+#if [ $# -ne 1 ]
+#then
+#  echo "Usage: `basename $0` <pid>"
+#  ps -ef | grep inin
+#  exit -1
+#else
+#  pid=$1
+#fi
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+WATCHPROG="ininedgeservices-l64d-1-0"
+WATCHPROG_ROOT=$(echo $WATCHPROG | cut -d'-' -f 1)
+
+opcontrol --stop
+opcontrol --shutdown
+
+# Out of the box RedHat kernels are OProfile repellent.
+opcontrol --no-vmlinux
+opcontrol --reset
+
+# List of events for platform to be found in /usr/share/oprofile/<>/events
+opcontrol --event=CYCLES:1000
+
+opcontrol --start
+
+$WATCHPROG
+
+opcontrol --stop
+opcontrol --dump
+
+
+rm $WATCHPROG.opreport.log
+opreport > $WATCHPROG.opreport.log
+
+rm $WATCHPROG.opreport.sym
+opreport -l > $WATCHPROG.opreport.sym
+
+
+opcontrol --shutdown
+opcontrol --deinit
+
+echo "*** `date` Done."
+printf '\a'
+

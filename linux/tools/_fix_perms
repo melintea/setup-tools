@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#
+#
+#
+
+echo "$0 ..."
+
+sudo chmod go+r /sys/firmware/dmi/tables/DMI
+
+sudo chown -R amelinte.amelinte ~amelinte/data/edge
+
+sudo /usr/bin/patchelf --set-rpath /home/amelinte/data/builds/icidentifiers_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/services_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/media_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/data_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/system_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/core_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64 /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgepairingclient-l64d-1-0
+
+# set caps after rpath
+sudo /usr/bin/patchelf --set-rpath /home/amelinte/data/builds/icidentifiers_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/services_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/media_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/data_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/system_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/core_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64 /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgemedia-l64d-1-0
+sudo setcap cap_sys_admin,cap_sys_nice,cap_net_admin,cap_net_raw,cap_sys_rawio=+ep /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgemedia-l64d-1-0
+
+sudo /usr/bin/patchelf --set-rpath /home/amelinte/data/builds/icidentifiers_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/services_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/media_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/data_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/system_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/core_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64 /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgemedia-l64r-1-0
+sudo setcap cap_sys_admin,cap_sys_nice,cap_net_admin,cap_net_raw,cap_sys_rawio=+ep /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgemedia-l64r-1-0
+
+sudo /usr/bin/patchelf --set-rpath /home/amelinte/data/builds/icidentifiers_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/services_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/media_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/data_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/system_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/core_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64 /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgecontrol-l64d-1-0
+sudo setcap cap_net_bind_service,cap_net_raw=+ep /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgecontrol-l64d-1-0
+sudo /usr/bin/patchelf --set-rpath /home/amelinte/data/builds/icidentifiers_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/services_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/media_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/data_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/system_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/core_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64 /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgecontrol-l64r-1-0
+sudo setcap cap_net_bind_service,cap_net_raw=+ep /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgecontrol-l64r-1-0
+
+sudo /usr/bin/patchelf --set-rpath /home/amelinte/data/builds/icidentifiers_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/services_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/media_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/data_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/system_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/core_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64 /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgeservices-l64d-1-0
+sudo setcap cap_sys_admin,cap_sys_nice,cap_net_admin,cap_sys_time=+ep /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgeservices-l64d-1-0
+sudo /usr/bin/patchelf --set-rpath /home/amelinte/data/builds/icidentifiers_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/services_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/media_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/data_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/system_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/core_main_systest/pub/gen/bin/l64:/home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64 /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgeservices-l64r-1-0
+sudo setcap cap_sys_admin,cap_sys_nice,cap_net_admin,cap_sys_time=+ep /home/amelinte/data/builds/edge_main_systest/pub/gen/bin/l64/ininedgeservices-l64r-1-0
+
+echo "$0 Done"

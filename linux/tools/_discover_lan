@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#
+#
+#
+
+# Cisco VPN: 
+lan="172.18.14."
+
+for i in `seq 97 255`; do
+    target="${lan}${i}"
+    pingTxt=`ping -c 1 ${target}`
+    if [ $? -eq 0 ]; then
+        echo "${target} is on"
+    fi
+done

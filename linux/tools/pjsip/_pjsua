@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# SIP Client
+# http://www.pjsip.org/pjsua.htm
+#
+# Usage: ./_pjsua sip:4001@10.254.64.200:5060
+#
+
+if [ $# -ne 1 ]
+then
+  echo "Usage: `basename $0` sip:4001@10.254.64.200:5060"
+  exit -1
+fi
+
+callee=$1
+echo "Calling $callee"
+
+./pjsua-x86_64-unknown-linux-gnu --config-file=./pjsua.config   $callee  
+

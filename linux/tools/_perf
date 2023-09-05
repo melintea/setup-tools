@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#
+# Profiling script for $WATCHPROG
+# Must be run as root
+#
+# https://perf.wiki.kernel.org/index.php/Tutorial
+#
+ 
+ 
+#if [ $# -ne 1 ]
+#then
+#  echo "Usage: `basename $0` <pid>"
+#  ps -ef | grep inin
+#  exit -1
+#else
+#  pid=$1
+#fi
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+WATCHPROG="ininedgeservices-l64d-1-0"
+WATCHPROG_ROOT=$(echo $WATCHPROG | cut -d'-' -f 1)
+
+while [ -z "$pid" ]
+do
+  echo "Waiting for ${WATCHPROG}"
+  pid=`ps -eF | grep ${WATCHPROG} | grep -v grep | head -1 | awk {'print$2'}`
+  sleep 10
+done
+
+echo "*** Waiting 5 mins for process $pid to fully initialize"
+sleep 300
+REPORT_FILE="/tmp/_perf_`date +"%a_%d_%b_%Y_%k_%M_%S"`.$WATCHPROG_ROOT.$pid" # e.g. /tmp/Fri_06_Apr_2018_12_10_50.ininedgeservices.12345
+echo "*** `date` Hooking into process $pid; report: $REPORT_FILE"
+
+echo "Collecting data for 1200 sec..."
+#perf stat -e cycles -p $pid sleep 1200
+perf record -p $pid -g --call-graph dwarf,8192 sleep 1200
+
+echo "Analizing..."
+perf report --verbose -g -call-graph=graph | tee ${REPORT_FILE}
+perf report --tui
+ls -l "${REPORT_FILE}*"
+ls -l perf.data
+
+echo "*** `date` Done. Tip: perf top"
+printf '\a'
+

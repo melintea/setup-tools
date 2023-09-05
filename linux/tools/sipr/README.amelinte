@@ -1,0 +1,44 @@
+Linux Sipper Notes
+==============================
+
+Install
+=======
+
+* install ruby 1.8 and rubygems_1.8.24-1ubuntu1_all.deb
+
+$ ruby --version
+ruby 1.8.7 (2012-02-08 patchlevel 358) [x86_64-linux]
+
+Install from gem --> does NOT work with ruby 1.9
+----------------------------------
+
+$ gem uninstall Sipper
+$ gem install Sipper-3.0.0_lin.gem ==> /var/lib/gems
+
+
+# With ruby 1.9:
+$ ssmoke 
+/var/lib/gems/1.9.1/gems/Sipper-3.0.0/sipper/transaction/transaction.rb:50:in `+': can't convert Symbol into String (TypeError)
+	from /var/lib/gems/1.9.1/gems/Sipper-3.0.0/sipper/transaction/transaction.rb:50:in `block in mask_callbacks'
+
+# With ruby 1.8:
+$ ssmoke
+Loaded suite /usr/local/bin/ssmoke
+Started
+< INVITE  > 100  > 200  < ACK  > BYE  < 200  .
+Finished in 0.030489 seconds.
+
+1 tests, 12 assertions, 0 failures, 0 errors
+
+
+Use sources
+-----------------------------------
+$ svn checkout svn://rubyforge.org/var/svn/sipper
+
+
+Usage
+=======
+
+* Edit config/sipper.cfg & config/log4r.xml 
+* Run sipper.sh <args>
+

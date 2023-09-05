@@ -1,0 +1,7 @@
+#! /bin/sh
+#
+# plantuml wrapper for Cygwin
+#
+
+# to debug: -keepfiles -debugsvek 
+java -jar c:/bin/bin/plantuml.1.2020.12.jar  -tsvg -verbose $@

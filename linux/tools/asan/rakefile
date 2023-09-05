@@ -1,0 +1,34 @@
+
+exe :test_sample_lambda,
+    cflags('-Wall', '-Wextra', '-Wconversion', '-fsanitize=address').only_if(:linux).only_if(:debug),
+    linkflags('-fsanitize=address', '-shared-libsan', '-L/usr/lib/llvm-11/lib/clang/11.0.0/lib/linux').only_if(:linux).only_if(:debug)
+    public_lib('//system/ace'),
+    publish('test_sample_lambda')
+ 
+# Alternative - statically link with ASAN libraries
+exe :test_sample_lambda,
+    cflags('-Wall', '-Wextra', '-Wconversion', '-fsanitize=address').only_if(:linux).only_if(:debug),
+    linkflags('/usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-preinit-x86_64.a',
+              '/usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a',
+              '/usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan_cxx-x86_64.a').only_if(:linux).only_if(:debug),
+    public_lib('//system/ace'),
+    publish('test_sample_lambda')
+
+# https://stackoverflow.com/questions/42482494/undefined-reference-to-asan-init-v4-when-compiling
+# https://gist.github.com/kwk/4171e37f4bcdf7705329
+.PHONY: using-gcc using-gcc-static using-clang
+
+using-gcc:
+	g++-4.8 -o main-gcc -lasan -O -g -fsanitize=address -fno-omit-frame-pointer main.cpp && \
+	ASAN_OPTIONS=symbolize=1 ASAN_SYMBOLIZER_PATH=$(shell which llvm-symbolizer) ./main-gcc
+
+using-gcc-static:
+	g++-4.8 -o main-gcc-static -static-libstdc++ -static-libasan -O -g -fsanitize=address -fno-omit-frame-pointer main.cpp && \
+	ASAN_OPTIONS=symbolize=1 ASAN_SYMBOLIZER_PATH=$(shell which llvm-symbolizer) ./main-gcc-static
+
+using-clang:
+	clang -o main-clang -x c++ -O -g -fsanitize=address main.cpp && \
+	ASAN_OPTIONS=symbolize=1 ASAN_SYMBOLIZER_PATH=$(shell which llvm-symbolizer) ./main-clang
+
+#clang -o main-clang -x c++ -O -g -fsanitize=address main.cpp && \
+#	ASAN_OPTIONS=symbolize=1 ASAN_SYMBOLIZER_PATH=/usr/local/bin/llvm-symbolizer ./main-clang

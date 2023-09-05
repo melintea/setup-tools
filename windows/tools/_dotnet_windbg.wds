@@ -1,0 +1,16 @@
+$$ .net WinDbg script. Usage: 
+$$     $$><c:\scripts\HelloWorld.wds
+
+.cordll -ve -u -l
+.load C:\Windows\Microsoft.NET\Framework\v4.0.30319\sos.dll
+.load C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscordacwks.dll
+
+$$ Psscor2/4 Managed-Code Debugging Extension for WinDbg
+$$ http://www.microsoft.com/en-us/download/details.aspx?id=1073
+$$ http://www.microsoft.com/en-ca/download/details.aspx?id=21255
+
+$$ http://www.c-sharpcorner.com/UploadFile/satisharveti/look-at-windbg-commands-for-advanced-net-debugging/
+$$ http://naveensrinivasan.com/2010/03/10/debugging-net-framework-source-code-within-windbg/
+$$ http://blogs.msdn.com/b/kaevans/archive/2011/04/11/intro-to-windbg-for-net-developers.aspx
+$$ http://msdn.microsoft.com/en-us/library/bb190764%28v=vs.110%29.aspx
+$$ http://www.slideshare.net/CoryFoy/debugging-net-applications-with-windbg

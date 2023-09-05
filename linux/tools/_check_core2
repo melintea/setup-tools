@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#
+# Check a . core file with https://github.com/npamnani/coda
+#
+
+if [ $# -ne 1 ]; then 
+    echo "Usage $0 corefile"
+    exit 1
+fi
+
+COREFILE="$1"
+echo "Analyzing ${COREFILE}"
+
+coda -i "${COREFILE}"
+

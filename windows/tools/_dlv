@@ -1,0 +1,9 @@
+#! /bin/sh
+#
+#  Golang debugger
+#  https://github.com/derekparker/delve
+#  dlv debug github.com/me/foo/cmd/foo -- -arg1 value
+#
+
+/cygdrive/c/inin/go-work/bin/dlv $@
+

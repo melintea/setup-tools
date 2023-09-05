@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#
+# Check a core file.
+#
+
+# Finally run gdb on it
+THIS_FOLDER=`pwd`
+${GDB} \
+    -iex "set logging file _gdb.${COREFILE}.log" \
+    -iex "set logging on" \
+    -iex "set solib-absolute-prefix ${THIS_FOLDER}"  \
+    -iex "set substitute-path ${FROM_SRC_PATH1} ${TO_SRC_PATH1}" \
+    -iex "set substitute-path ${FROM_SRC_PATH2} ${TO_SRC_PATH2}" \
+    -ex  "bt" \
+    ${EXE_FILE} \
+    ${COREFILE}
+
+echo "Debugging log: gdb.${COREFILE}.log"
+
+

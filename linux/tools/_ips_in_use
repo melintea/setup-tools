@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#
+# IP4 in use
+#
+
+ping -c 6 172.18.18.254
+arp -a
+

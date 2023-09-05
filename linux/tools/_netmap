@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#
+#  Which IPs are in use
+#
+
+ping -c 5 -b 10.254.64.223
+arp -a
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#
+#
+#
+
+cat /proc/sys/kernel/core_pattern
+find ~amelinte -name '_core*' -exec ls -l {} \;

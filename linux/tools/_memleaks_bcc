@@ -1,0 +1,59 @@
+#!/bin/bash
+
+#
+# BCC memory leaks for $WATCHPROG
+# Must be run as root
+#
+ 
+ 
+#if [ $# -ne 1 ]
+#then
+#  echo "Usage: `basename $0` <pid>"
+#  ps -ef | grep inin
+#  exit -1
+#else
+#  pid=$1
+#fi
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+WATCHPROG="ininedgeservices-l64d-1-0"
+WATCHPROG_ROOT=$(echo $WATCHPROG | cut -d'-' -f 1)
+
+# example
+# /usr/share/bcc/tools/memleak -p $pid -z 257 -a -T 10000 -o 3600000 3600 96 | tee medialeak4.txt
+#
+# report every three minutes/180s, 200 reports => 10 hours; top 10k stacks; allocs older than 1h/3600000ms
+#/usr/share/bcc/tools/memleak --pid $pid -a -T 10000 -o 3600000 180 200 | tee /tmp/_memleak_bcc_$pid.txt
+#
+REPORT_PERIOD=180          # report every three minutes/180s
+REPORT_NUM_REPORTS=80      # times $REPORT_PERIOD. 80=4h watch; 200=10h
+REPORT_OLDER_THAN=3600000  # report alive allocs older than 1h
+REPORT_NUM_STACKS=10000    # top 10k stacks
+
+while [ -z "$pid" ]
+do
+  echo "Waiting for ${WATCHPROG}"
+  pid=`ps -eF | grep ${WATCHPROG} | grep -v grep | head -1 | awk {'print$2'}`
+  sleep 10
+done
+
+echo "*** Waiting 5 mins for process $pid to fully initialize"
+sleep 300
+REPORT_FILE="/tmp/_memleaks_`hostname`_`date +"%a_%d_%b_%Y_%k_%M_%S"`.$WATCHPROG_ROOT.$pid" # e.g. /tmp/Fri_06_Apr_2018_12_10_50.ininedgeservices.12345
+echo "*** `date` Hooking into process $pid; report: $REPORT_FILE"
+
+#/usr/share/bcc/tools/memleak --pid $pid -a -T $REPORT_NUM_STACKS -o $REPORT_OLDER_THAN $REPORT_PERIOD $REPORT_NUM_REPORTS | tee "${REPORT_FILE}.txt"
+/usr/share/bcc/tools/memleak --pid $pid -a -T $REPORT_NUM_STACKS -o $REPORT_OLDER_THAN $REPORT_PERIOD $REPORT_NUM_REPORTS > "${REPORT_FILE}.txt"
+gzip "${REPORT_FILE}.txt"
+
+gcore -o "${REPORT_FILE}.core" $pid
+gzip "${REPORT_FILE}.core*"
+
+ls -l "${REPORT_FILE}"*
+
+echo "*** `date` Done."
+printf '\a'

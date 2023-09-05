@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#
+# libmemlib debug helper
+#
+ 
+TARGET="${HOME}/data/builds/edge_main_systest/pub/tests/gen/release/l64/bin/test_purecloudcommon-l64r-1-0"
+HOOKLIB="/home/amelinte/data/builds/edge_main_systest/int/src/_memtool/lpt/binaries/lib/libmemleak_mtrace_hooks.so"
+ls -l "${TARGET}"
+ls -l "${HOOKLIB}"
+   
+gdb \
+    -ex "set auto-load safe-path /" \
+    -ex "set breakpoint pending on" \
+    -ex "set environment LD_PRELOAD=$HOOKLIB" \
+    -ex "set exec-wrapper env LD_PRELOAD=$HOOKLIB" \
+    -ex "file $TARGET" \
+    -ex "b lpt::stack::detail::bfd::library::resolve" \
+    -ex "b lpt::stack::detail::bfd::extended_symbol_info" \
+    -ex "run"
+

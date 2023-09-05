@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#
+# qtcreator incantation to avoid a startup crash
+#
+
+/opt/qt-5.7.1/bin/qtcreator -noload Welcome
+

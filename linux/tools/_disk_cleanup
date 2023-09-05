@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#
+#
+#
+
+df
+rm -rf /tmp/unit-test-root/*
+df
+
+ncdu

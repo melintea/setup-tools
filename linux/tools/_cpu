@@ -1,0 +1,78 @@
+#!/bin/bash
+
+#
+# CPU profiling script for $WATCHPROG
+# Must be run as root
+#
+# https://perf.wiki.kernel.org/index.php/Tutorial
+# http://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html
+# https://stackoverflow.com/questions/19719911/getting-user-space-stack-information-from-perf#19720446
+#
+
+DURATION=30 #seconds
+
+pushd /tmp
+ 
+PID=0
+WATCHPROG=""
+
+echo "CPU profiling script" 
+echo "Usage: `basename $0` <optional: process-name>"
+ps -ef | grep inin
+
+if [ $# -eq 1 ]
+then
+    WATCHPROG=$1
+    while [ "${PID}" == 0 ]
+    do
+      echo "Waiting for ${WATCHPROG}"
+      PID=`ps -eF | grep ${WATCHPROG} | grep -v grep | head -1 | awk {'print$2'}`
+      sleep 10
+    done
+fi
+
+WATCHPROG_ROOT=$(echo $WATCHPROG | cut -d'-' -f 1)
+echo "Checking process $PID / $WATCHPROG"
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+
+if [[ $PID -ne 0 ]]; then
+    echo "*** Waiting 5 mins for process $PID to fully initialize"
+    #sleep 300
+
+    FILE_ROOT="/tmp/_cpu.`hostname`.`date +"%a_%d_%b_%Y_%k_%M_%S"`.${WATCHPROG_ROOT}.${PID}" # e.g. /tmp/Fri_06_Apr_2018_12_10_50.ininedgeservices.12345
+    REPORT_FILE="${FILE_ROOT}.txt" 
+    echo "*** `date` Hooking into process ${PID}; report: ${REPORT_FILE}"
+
+    PID_ARGS=" -p ${PID} "
+else
+    FILE_ROOT="/tmp/_cpu.`hostname`.`date +"%a_%d_%b_%Y_%k_%M_%S"`.all" # e.g. /tmp/Fri_06_Apr_2018_12_10_50.ininedgeservices.12345
+    REPORT_FILE="${FILE_ROOT}.txt" 
+    echo "*** `date` Hooking into process ${PID}; report: ${REPORT_FILE}"
+
+    PID_ARGS=" -a "
+fi
+
+
+echo "Collecting data for $DURATION sec..."
+#perf stat -e cycles "${PID_ARGS}" sleep ${DURATION}
+perf record ${PID_ARGS} -g --call-graph dwarf,8192 -- sleep ${DURATION}
+
+echo "Analizing..."
+#perf report --verbose -g -call-graph=graph > ${REPORT_FILE}
+perf report -g -call-graph=graph > ${FILE_ROOT}.graph
+ls -l "${FILE_ROOT}"*
+
+perf report --tui
+mv perf.data "${FILE_ROOT}.data"
+ls -l perf.data "${FILE_ROOT}.data"
+
+echo "*** `date` Done. Tip: perf top"
+printf '\a'
+
+popd
+

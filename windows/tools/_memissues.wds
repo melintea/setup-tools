@@ -1,0 +1,25 @@
+$$ 
+$$ Memory corruption helper script. 
+$$ Usage: $$><D:\I3\IC\Server\_memissues.wds
+$$
+$$ See also: http://dumpanalysis.org/WCDA/WCDA-Sample-Chapter.pdf
+$$
+
+.block
+{
+    .logopen /t D:\I3\IC\Server\_dbg.log
+
+    .printf /D "*** Starting memory analysis\n"
+
+    $$ .sympath+ D:\I3\IC\Server
+    $$ .sympath
+    $$ .reload
+
+    $$ lm
+
+    $$ !gflag +htc +hfc +hpc +hvc +hpa +soe +sue +ust +vrf
+    !gflag +htc +hfc +hpc +hvc +hpa +soe +sue +ust +vrf
+    !avrf
+
+    g
+}

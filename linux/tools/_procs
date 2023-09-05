@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#
+#
+#
+
+reftxt=''
+while (true)
+do
+    outtxt=`ps -ef | grep inin | grep -v "grep inin"`
+    if [ "$outtxt" != "$reftxt" ]; then
+        echo "-------- `date +"%a/%d-%b-%Y/%T"`"
+        echo "$outtxt"
+        reftxt="$outtxt"
+    fi
+    sleep 5
+done

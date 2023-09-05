@@ -1,0 +1,21 @@
+"::is_alive" OR "ProcessMgr"
+
+set _NT_SYMBOL_PATH=%_NT_SYMBOL_PATH%;C:\builds\bridge_main_systest\pub\gen\bin\w32;C:\builds\edge_main_systest\pub\gen\bin\w32;C:\builds\media_main_systest\pub\gen\bin\w32;C:\builds\data_main_systest\pub\gen\bin\w32;C:\builds\icidentifiers_main_systest\pub\gen\bin\w32;C:\builds\core_main_systest\pub\gen\bin\w32;C:\builds\system_main_systest\pub\tools\common-bin;C:\builds\system_main_systest\pub\gen\bin\w32;
+
+SRV*c:\symbols*http://i3devfiles.i3domain.inin.com/symbolserver/DailyBuildSymbols;SRV*c:\symbols*http://i3devfiles.i3domain.inin.com/symbolserver/GASymbols;SRV*c:symbols*http://i3devfiles.i3domain.inin.com/symbolserver/MicrosoftSymbols;SRV*c:\symbols*http://i3devfiles.i3domain.inin.com/MicrosoftSymbols;C:\builds\bridge_main_systest\pub\gen\bin\w32;C:\builds\edge_main_systest\pub\gen\bin\w32;C:\builds\media_main_systest\pub\gen\bin\w32;C:\builds\data_main_systest\pub\gen\bin\w32;C:\builds\icidentifiers_main_systest\pub\gen\bin\w32;C:\builds\core_main_systest\pub\gen\bin\w32;C:\builds\system_main_systest\pub\tools\common-bin;C:\builds\system_main_systest\pub\gen\bin\w32;
+
+.logopen c:\temp\_ininserver_handles.txt; .reload /f; lm; !htrace -enable -0x20000; !htrace -snapshot; g
+!htrace -diff
+
+.symfix +C:\builds\bridge_main_systest\pub\gen\bin\w32;C:\builds\edge_main_systest\pub\gen\bin\w32;C:\builds\media_main_systest\pub\gen\bin\w32;C:\builds\data_main_systest\pub\gen\bin\w32;C:\builds\icidentifiers_main_systest\pub\gen\bin\w32;C:\builds\core_main_systest\pub\gen\bin\w32;C:\builds\system_main_systest\pub\tools\common-bin;C:\builds\system_main_systest\pub\gen\bin\w32;
+
+
+sla mod!func+offset
+sla addr
+
+
+http://blogs.technet.com/b/yongrhee/archive/2011/12/19/how-to-troubleshoot-a-handle-leak.aspx
+http://channel9.msdn.com/Blogs/jeff_dailey/Understanding-handle-leaks-and-how-to-use-htrace-to-find-them
+https://uwnthesis.wordpress.com/2014/01/20/windbg-how-to-cure-symbols-errors/
+http://stackoverflow.com/questions/11835748/0xc0020001-the-string-binding-is-invalid-only-occurring-in-wpf
+

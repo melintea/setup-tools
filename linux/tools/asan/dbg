@@ -1,0 +1,9 @@
+
+export LD_LIBRARY_PATH=/usr/local/opt/private-llvm/lib/clang/11.0.0/lib/linux:$LD_LIBRARY_PATH
+export ASAN_SYMBOLIZER_PATH=/usr/local/opt/private-llvm/bin/llvm-symbolizer
+
+# https://stackoverflow.com/questions/30809022/how-can-i-break-on-ubsan-reports-in-gdb-and-continue
+gdb -q -ex break\ __ubsan::ScopedReport::~ScopedReport -ex "break __asan_report_error" -ex "__ubsan::Diag::~Diag" -ex r ./a.out
+
+# https://gist.github.com/kwk/4171e37f4bcdf7705329
+# ASAN_OPTIONS=symbolize=1 ASAN_SYMBOLIZER_PATH=/usr/local/bin/llvm-symbolizer UBSAN_OPTIONS=print_stacktrace=1  ./main-clang

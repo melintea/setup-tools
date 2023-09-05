@@ -1,0 +1,70 @@
+#!/bin/bash
+
+#
+# Check a . core file against binaries in the same folder
+#
+
+if [ $# -ne 2 ]; then 
+    echo "Usage $0 image corefile"
+    exit 1
+fi
+
+OPTDIR="opt/inin/edge/bin"
+IMAGE="$1"
+COREFILE="$2"
+
+echo "Analyzing ${COREFILE}"
+
+UPDATEDIR=`gdb -batch \
+    -ex "file $IMAGE" \
+    -ex "core-file $COREFILE" \
+    -ex "info proc mapping" \
+    -ex "quit" | grep "/updates" | head -1 | awk '{print $5}' | cut -c 2-`
+echo "Update: ${UPDATEDIR}"
+UPDATEDIR=`dirname ${UPDATEDIR}`
+echo "Update: ${UPDATEDIR}"
+
+rm -rf "${OPTDIR}"
+rm -rf "${UPDATEDIR}"
+rm -rf opt
+
+mkdir -p "${UPDATEDIR}"
+for f in *.so
+do
+    #echo "  ${PWD}/$f => ${UPDATEDIR}/$f"
+    ln -s "${PWD}/$f" "${UPDATEDIR}/"
+done
+
+mkdir -p "${OPTDIR}"
+for f in *.so
+do
+    #echo "  ${PWD}/$f => ${OPTDIR}/$f"
+    ln -s "${PWD}/$f" "${OPTDIR}/"
+done
+
+#tree opt
+
+FORCELOAD=""
+for f in ${UPDATEDIR}/*.so
+do
+    LOADONE="symbol-file $f"
+    echo "  ${LOADONE}"
+    FORCELOAD="${FORCELOAD} -ex "'"'"symbol-file $f"'"'
+done
+#echo "'""${FORCELOAD}""'"
+
+gdb \
+    -ex "set verbose on" \
+    -ex "set confirm off" \
+    -ex "set sysroot $PWD" \
+    -ex "show sysroot" \
+    -ex "set auto-load safe-path /" \
+    -ex "add-auto-load-safe-path ." \
+    -ex "set solib-absolute-prefix ./" \
+    -ex "set solib-search-path .:$OPTDIR:$UPDATEDIR" \
+    -ex "file $IMAGE" \
+    -ex "core-file $COREFILE" \
+    #${FORCELOAD} \
+    -ex "bt full" 
+
+

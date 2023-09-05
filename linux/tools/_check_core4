@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#
+# Check a . core file against binaries in some folder
+# Ex:  _check_core4 /tmp/setup_gdb_core20170907-27517-pvaspq/ininedgeservices-l64d-1-0 ./ininedgeservice-738-1000-10-6-1504726853.core /tmp/setup_gdb_core20170907-27517-pvaspq
+#
+
+if [ $# -ne 3 ]; then 
+    echo "Usage $0 image corefile dir-with-bins"
+    exit 1
+fi
+
+OPTDIR="opt/inin/edge/bin"
+IMAGE="$1"
+COREFILE="$2"
+UPDATEDIR="$3"
+
+echo "Analyzing ${COREFILE}"
+
+gdb \
+    -ex "set verbose on" \
+    -ex "set confirm off" \
+    -ex "set auto-load safe-path /" \
+    -ex "add-auto-load-safe-path $UPDATEDIR" \
+    -ex "set solib-search-path $UPDATEDIR" \
+    -ex "file $IMAGE" \
+    -ex "core-file $COREFILE" \
+    #${FORCELOAD} \
+    -ex "bt full" 
+
+
