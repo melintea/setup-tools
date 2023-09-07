@@ -7,7 +7,7 @@ alias snav="/opt/sourcenav/bin/snavigator"
 
 #alias xterm="gnome-terminal"
 alias grep="grep --color -In"
-alias regrep "grep -RE ./* "
 alias ll="ls -al"
 alias tree="tree -apsDC"
 
+alias regrep='f(){ grep -RE "$@" *; unset -f f; }; f'
