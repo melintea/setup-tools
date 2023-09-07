@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+CONFIGDIR=${HOME}/work/github/setup-tools/linux/config/bash
+
+. ${CONFIGDIR}/aliases
+. ${CONFIGDIR}/display
+. ${CONFIGDIR}/ps1
+. ${CONFIGDIR}/varia
+
+
+
+# 
+# 
+# 
+
+
+export LS_COLORS="ow=01;90:di=01;100" 
+
+
+
