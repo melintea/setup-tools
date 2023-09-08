@@ -1,8 +1,15 @@
+#!/bin/bash
+
+
 #
-# export DISPLAY=`who | grep -m 1 \`whoami\` | sed s/.*\(// | sed s/\)//`:0 #Khaldoun
+# export DISPLAY=`who | grep -m 1 \`whoami\` | sed s/.*\(// | sed s/\)//`:0 
+#
 export DISPLAY=`who | grep $USER | tail -n 1 | sed -n '/(/,/)/{:a; $!N; /)/!{$!ba}; s/.*(\([^)]*\)).*/\1/p}'`
 if [[ ! "$DISPLAY" =~ ":0" ]]; then
     export DISPLAY="$DISPLAY":0.0
 fi
 echo "Setting DISPLAY to $DISPLAY"
+
+
+export LS_COLORS="ow=01;90:di=01;100" 
 
