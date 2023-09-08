@@ -2,5 +2,5 @@
 
 
 
-export PATH=$PATH:/opt/p4v/bin
+export PATH=${PATH}:${HOME}/work/github/setup-tools/linux/tools
 
