@@ -1,0 +1,13 @@
+[Unit]
+Description=RAID check
+After=postfix
+
+[Service]
+Type=oneshot
+ExecStart=/home/amelinte/work/github/setup-tools/linux/tools/_check_raid.sh
+RemainAfterExit=true
+#ExecStop=/opt/foo/teardown-foo.sh
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target
