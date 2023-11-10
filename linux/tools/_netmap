@@ -4,6 +4,8 @@
 #  Which IPs are in use
 #
 
-ping -c 5 -b 10.254.64.223
-arp -a
+#ping -c 5 -b 10.254.64.223
+#arp -a
+
+sudo arp-scan --interface=eno1 --localnet
 
