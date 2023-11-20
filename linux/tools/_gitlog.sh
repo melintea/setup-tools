@@ -1,4 +1,4 @@
 #!/bin/bash
 
-git log --graph --decorate --oneline
+git log --graph --decorate --oneline $*
 
