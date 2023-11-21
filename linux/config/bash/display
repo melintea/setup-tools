@@ -3,10 +3,12 @@
 
 #
 # export DISPLAY=`who | grep -m 1 \`whoami\` | sed s/.*\(// | sed s/\)//`:0 
+# export DISPLAY=`who | grep $USER | tail -n 1 | sed -n '/(/,/)/{:a; $!N; /)/!{$!ba}; s/.*(\([^)]*\)).*/\1/p}'`
 #
-export DISPLAY=`who | grep $USER | tail -n 1 | sed -n '/(/,/)/{:a; $!N; /)/!{$!ba}; s/.*(\([^)]*\)).*/\1/p}'`
-if [[ ! "$DISPLAY" =~ ":0" ]]; then
-    export DISPLAY="$DISPLAY":0.0
+mytem=`tty | sed -e 's/\/dev\///g'`
+display=`who | grep "$USER" | grep "$myterm" | sed -n '/(/,/)/{:a; $!N; /)/!{$!ba}; s/.*(\([^)]*\)).*/\1/p}'`
+if [[ ! "$display" =~ ":0" ]]; then
+    export DISPLAY="$display":0.0
 fi
 echo "Setting DISPLAY to $DISPLAY"
 
