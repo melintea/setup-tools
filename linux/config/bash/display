@@ -7,7 +7,7 @@
 #
 mytem=`tty | sed -e 's/\/dev\///g'`
 display=`who | grep "$USER" | grep "$myterm" | sed -n '/(/,/)/{:a; $!N; /)/!{$!ba}; s/.*(\([^)]*\)).*/\1/p}'`
-if [[ "x$display" != "x" ]]; then
+if [ "x$display" != "x:0" ] && [ "x$display" != "x" ]; then
     export DISPLAY="$display":0.0 #remote
     echo "Setting DISPLAY to $DISPLAY"
 fi
