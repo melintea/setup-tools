@@ -1,3 +1,5 @@
+set verbose on
+
 set breakpoint pending on
 
 set print address on 
@@ -11,7 +13,17 @@ set print object on
 #
 # User-defined commands
 #
-source ~/tools/gdb/procinfo
-source ~/tools/gdb/stl
-source ~/tools/gdb/pstack
+python
+import os
 
+CUSTOMCFGROOT = os.getenv('CUSTOMCFGROOT', '')
+
+gdb.execute('source %s/gdb/addrtosym'%CUSTOMCFGROOT)
+gdb.execute('source %s/gdb/procinfo'%CUSTOMCFGROOT)
+gdb.execute('source %s/gdb/stl'%CUSTOMCFGROOT)
+gdb.execute('source %s/gdb/pstack'%CUSTOMCFGROOT)
+gdb.execute('source %s/gdb/trace_call'%CUSTOMCFGROOT)
+
+#
+#
+#

@@ -11,3 +11,5 @@ alias ll="ls -al"
 alias tree="tree -apsDC"
 
 alias regrep='f(){ grep -RE "$@" *; unset -f f; }; f'
+
+alias gdb='f(){ /usr/bin/cgdb -d /usr/bin/gdb "$@" *; unset -f f; }; f'

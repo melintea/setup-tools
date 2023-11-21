@@ -1,8 +1,13 @@
 #!/bin/bash
 
+#
+# Add to ~/.bashrc
+# source ${HOME}/work/github/setup-tools/linux/config/bash/bashrc
+#
 
-CONFIGDIR=${HOME}/work/github/setup-tools/linux/config/bash
+export CUSTOMCFGROOT=${HOME}/work/github/setup-tools/linux/config
 
+CONFIGDIR=${CUSTOMCFGROOT}/bash
 . ${CONFIGDIR}/aliases
 . ${CONFIGDIR}/display
 . ${CONFIGDIR}/path
