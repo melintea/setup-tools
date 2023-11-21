@@ -14,7 +14,20 @@ CONFIGDIR=${CUSTOMCFGROOT}/bash
 . ${CONFIGDIR}/ps1
 . ${CONFIGDIR}/varia
 
+if [ ! -e ${HOME}/.gdbinit ]; then
+  echo "Fixing .gdbinit"
+  ln -s ${CUSTOMCFGROOT}/gdb/gdbinit ${HOME}/.gdbinit
+fi
 
+if [ ! -e ${HOME}/.gitconfig ]; then
+  echo "Fixing .gitconfig"
+  ln -s ${CUSTOMCFGROOT}/gitconfig ${HOME}/.gitconfig
+fi
+
+if [ ! -e ${HOME}/.vimrc ]; then
+  echo "Fixing .vimrc"
+  ln -s ${CUSTOMCFGROOT}/vimrc ${HOME}/.vimrc
+fi
 
 # 
 # 
