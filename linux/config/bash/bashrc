@@ -16,6 +16,7 @@ function linkto() {
 }
 
 export CUSTOMCFGROOT=${HOME}/work/github/setup-tools/linux/config
+pushd ${CUSTOMCFGROOT} && git pull && popd
 
 CONFIGDIR=${CUSTOMCFGROOT}/bash
 . ${CONFIGDIR}/aliases
