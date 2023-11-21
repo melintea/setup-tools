@@ -1,9 +1,19 @@
 #!/bin/bash
 
 #
-# Add to ~/.bashrc
+# Add to ~/.bashrc: 
 # source ${HOME}/work/github/setup-tools/linux/config/bash/bashrc
 #
+
+function linkto() {
+    src=$1
+    tgt=$2
+
+    if [ ! -e ${tgt} ]; then
+        echo "Fixing .${tgt}"
+        ln -s ${src} ${tgt}
+    fi
+}
 
 export CUSTOMCFGROOT=${HOME}/work/github/setup-tools/linux/config
 
