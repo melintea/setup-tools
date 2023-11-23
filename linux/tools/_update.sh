@@ -9,6 +9,7 @@ sudo apt update && sudo apt upgrade
 sudo apt install \
 apt apt-utils aptitude synaptic debianutils dpkg \
 firefox  thunderbird  seamonkey \
+keepass2 keepassxc \
 gdisk gparted \
 arp-scan bzip2 curl wget \
 git git-guy gitk mc tree meld less nedit dos2unix vim \
