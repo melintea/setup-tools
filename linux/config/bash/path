@@ -2,5 +2,5 @@
 
 
 
-export PATH=${PATH}:${HOME}/work/github/setup-tools/linux/tools
+export PATH=${PATH}:${HOME}/work/github/setup-tools/linux/tools:${HOME}/.local/bin
 
