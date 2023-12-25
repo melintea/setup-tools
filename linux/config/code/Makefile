@@ -2,6 +2,9 @@
 # Manage code extensions
 #
 
+usage: 
+	@echo "Usage: make list-extensions | install-extensions"
+
 list-extensions:
 	code --list-extensions > $(HOME)/work/github/setup-tools/linux/config/code/extensions.txt
 
