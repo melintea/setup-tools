@@ -4,4 +4,7 @@
 #
 #
 
-colordiff -y <(xxd "$1") <(xxd "$2")
+difftool=colordiff 
+#difftool=vimdiff
+
+${difftool} -y <(xxd "$1") <(xxd "$2")
