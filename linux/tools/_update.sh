@@ -17,6 +17,7 @@ ghostscript htop p7zip-full xz-utils zip \
 autotools-dev binutils-dev build-essentials cmake make ninja-build \
 bison flex g++ cgdb gdb clang lldb \
 linux-tools-common linux-tools-generic linux-tools-`uname -r` \
-google-perftools \
+google-perftools libbenchmark-dev graphviz \
+adb fastboot \
 rstudio 
 
