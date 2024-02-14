@@ -19,5 +19,6 @@ bison flex g++ cgdb gdb clang lldb \
 linux-tools-common linux-tools-generic linux-tools-`uname -r` \
 google-perftools libgoogle-perftools-dev libbenchmark-dev graphviz \
 adb fastboot \
+rpi-imager \
 rstudio 
 
