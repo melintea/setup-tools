@@ -11,6 +11,7 @@ fi
 
 fname=$1
 guid=`uuidgen | sed -s 's/-/_/g'`
+year=`date +'%Y'`
 
 # -----------------------------------------------------------------------------
 
@@ -18,7 +19,7 @@ sh -c "cat > ${fname}.hpp" <<EOFh
 /*
  *  \$Id: $
  *
- *  Copyright 2023 Aurelian Melinte.
+ *  Copyright ${year} Aurelian Melinte.
  *  Released under GPL 3.0 or later.
  *
  *  You need a C++0x compiler.
