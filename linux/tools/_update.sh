@@ -15,7 +15,7 @@ arp-scan bzip2 curl wget \
 git git-guy gitk mc tree meld less nedit dos2unix vim \
 ghostscript htop p7zip-full xz-utils zip \
 autotools-dev binutils-dev build-essentials cmake make ninja-build \
-bison flex g++ cgdb gdb clang lldb \
+bison flex g++ cgdb gdb clang clang-tidy lldb \
 linux-tools-common linux-tools-generic linux-tools-`uname -r` \
 google-perftools libgoogle-perftools-dev libbenchmark-dev graphviz \
 papi-tools papi-examples libpapi-dev \
