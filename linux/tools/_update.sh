@@ -18,6 +18,7 @@ autotools-dev binutils-dev build-essentials cmake make ninja-build \
 bison flex g++ cgdb gdb clang lldb \
 linux-tools-common linux-tools-generic linux-tools-`uname -r` \
 google-perftools libgoogle-perftools-dev libbenchmark-dev graphviz \
+papi-tools papi-examples libpapi-dev \
 adb fastboot \
 rpi-imager \
 rstudio 
