@@ -1,6 +1,8 @@
 eamodio.gitlens
 GitHub.remotehub
+jebbs.plantuml
 mechatroner.rainbow-csv
+ms-python.debugpy
 ms-python.python
 ms-python.vscode-pylance
 ms-toolsai.jupyter
