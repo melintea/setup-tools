@@ -46,7 +46,7 @@ public:
     ${fname}( const ${fname}& other );
     ${fname}& operator=( const ${fname}& other );
 
-    ${fname}( const ${fname}& other );
+    ${fname}( ${fname}&& other );
     ${fname}& operator=( ${fname}&& other );
 }; // ${fname}
 
