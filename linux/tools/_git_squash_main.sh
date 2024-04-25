@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git reflog
-read -p "Lsst commit to keep: " commit
+read -p "Last commit to keep: " commit
 
 git reset --soft ${commit}
 git commit -m 'Squash irrelevant commits'
