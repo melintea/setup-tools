@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#
+# rcs wrapper.
+# Usage: _rcs $file
+#
+
+
+menu=("diff" "log" "checkin" "checkout" "quit")
+select m in "${menu[@]}"
+do
+    case $m in
+    "diff")
+        rcsdiff $1
+	;;
+    "log")
+        rlog -r $1
+        ;;
+    "checkin")
+        ci $1
+        ;;
+    "checkout")
+        # read -p "Which  version: " rver
+        co -l $1
+        ;;
+    "quit")
+        break
+	;;
+    *) echo "invalid choice"
+    esac
+done

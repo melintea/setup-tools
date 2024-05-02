@@ -12,7 +12,7 @@ firefox  thunderbird  seamonkey \
 keepass2 keepassxc \
 gdisk gparted \
 arp-scan bzip2 curl wget \
-git git-gui gitk mc tree meld less nedit dos2unix vim jq \
+git git-gui gitk mc tree meld less nedit dos2unix vim jq rcs \
 ghostscript htop p7zip-full xz-utils zip \
 autotools-dev binutils-dev build-essentials cmake make ninja-build \
 bison flex g++ cgdb gdb clang clang-tidy lldb \
