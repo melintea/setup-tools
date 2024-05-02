@@ -6,6 +6,7 @@
 #
 
 
+PS3="rcs ops: "
 menu=("diff" "log" "checkin" "checkout" "quit")
 select m in "${menu[@]}"
 do
