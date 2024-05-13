@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#
+#
+#
+
+ls ~/.local/share/cura/5.7/plugins/ > ~/work/github/setup-tools/linux/config/cura/plugins.txt
+
+cp -pR /home/amelinte/.local/share/cura/5.7/quality_changes/* .
