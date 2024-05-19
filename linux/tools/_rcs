@@ -18,7 +18,7 @@ do
         rlog -r $1
         ;;
     "checkin")
-        ci $1
+        ci -l $1
         ;;
     "checkout")
         # read -p "Which  version: " rver
