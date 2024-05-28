@@ -1,5 +1,5 @@
 eamodio.gitlens
-GitHub.remotehub
+github.remotehub
 jebbs.plantuml
 mechatroner.rainbow-csv
 ms-python.debugpy
@@ -25,6 +25,7 @@ ms-vscode.makefile-tools
 ms-vscode.remote-explorer
 ms-vscode.remote-repositories
 ms-vscode.remote-server
-RDebugger.r-debugger
-REditorSupport.r
+rdebugger.r-debugger
+reditorsupport.r
 twxs.cmake
+yzhang.markdown-all-in-one
