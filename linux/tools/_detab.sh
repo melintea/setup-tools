@@ -2,9 +2,10 @@
 
 #  get rid of tabs in file
 
-if [$# -ne 1]; then
+if [ $# -ne 1 ]; then
     echo "usage: $0 file"
     exit 1
 fi
 
-/usr/bin/expand -t 4 "$1" | /usr/bin/sponge "S1"
+/usr/bin/expand -t 4 "$1" | /usr/bin/sponge "$1"
+/usr/bin/dos2unix "$1"
