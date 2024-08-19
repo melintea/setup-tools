@@ -13,14 +13,15 @@ BOLD=$(tput bold)
 
 VERSIONS=(11 12)
 
+alternative_cmds=(g++ cpp gcc-ar gcc-nm gcc-ranlib gcov gcov-dump gcov-tool lto-dump)
+
 # Loop through versions
 for VERSION in "${VERSIONS[@]}"; do
 
         alternative_string=""
-        alternative_cmds=(g++)
         for cmd in ${alternative_cmds}; do
             symlink="/usr/bin/${cmd}-${VERSION}"
-            if [[ -x "${symlink}" ]]; then
+            if [[ -x "${symlink}" ]]; then  # some alternative_cmds are not links
                 alternative_string+=" --slave /usr/bin/${cmd} ${cmd} /usr/bin/${cmd}-${VERSION} "
             fi
         done
