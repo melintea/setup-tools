@@ -5,4 +5,4 @@
 # Attach gdb to $1
 #
 
-gdb -ex "attach `pidof $1`"
+cgdb -ex "attach `pidof $1`"
