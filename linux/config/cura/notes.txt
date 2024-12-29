@@ -1,0 +1,3 @@
+PETG:
+- speed: nominal 40 but 80 ok for walls; 100: click noises, bad print
+
