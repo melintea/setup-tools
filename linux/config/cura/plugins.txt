@@ -1,4 +1,6 @@
 AutoTowersGenerator
+CustomSupportCylinder
+KlipperSettingsPlugin
 MeshTools
 OrientationPlugin
 SettingsGuide
