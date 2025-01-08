@@ -7,6 +7,7 @@ set -x
 # Build gcc from sources & install as a Debian package
 # https://forums.raspberrypi.com/viewtopic.php?t=362502
 # Debian:
+#  - https://earthly.dev/blog/creating-and-hosting-your-own-deb-packages-and-apt-repo/
 #  - https://anavi.org/article/215/
 #  - https://wiki.debian.org/BuildingTutorial
 # 
