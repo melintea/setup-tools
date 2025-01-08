@@ -1,19 +1,25 @@
-#!/bin/bash
+#!/usr/bin/bash
+
+set -x
 
 #
 # Raspberry Pi
 # Build gcc from sources & install as a Debian package
 # https://forums.raspberrypi.com/viewtopic.php?t=362502
+# Debian:
+#  - https://anavi.org/article/215/
+#  - https://wiki.debian.org/BuildingTutorial
 # 
 
 VERSION=14.2.0
 
-#
-#   --disable-bootstrap   (to speed the build on slow computers)
-#
-OPTS=--enable-languages=c,c++,fortran \
+OPTS=$(cat << END
+     --enable-languages=c,c++ \
      --disable-multilib \
-     --disable-werror
+     --disable-werror   \
+     --disable-bootstrap
+END
+)
 
 #
 #  For any computer with less than 4GB of memory.
@@ -23,15 +29,18 @@ OPTS=--enable-languages=c,c++,fortran \
 #  sudo /etc/init.d/dphys-swapfile restart
 #fi
 
+pushd ${HOME}/work || exit 1
+
 if [ -d gcc-$VERSION ]; then
   cd gcc-$VERSION
   rm -rf obj
 else
-  wget ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.xz
+  #wget https://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.xz || exit 1
   tar xf gcc-$VERSION.tar.xz
-  rm -f gcc-$VERSION.tar.xz
+  #rm -f gcc-$VERSION.tar.xz
   cd gcc-$VERSION
   contrib/download_prerequisites
+  dh_make -f ../gcc-$VERSION.tar.xz
 fi
 mkdir -p obj
 cd obj
@@ -88,8 +97,10 @@ then
   read -p "Do you wish to install the new GCC (y/n)? " yn
   case $yn in
      #[Yy]* ) sudo make install ;;
-     [Yy]* ) sudo checkinstall ;;
+     [Yy]* ) sudo checkinstall --install=no ;; #-D make install ;;
 	 * ) exit ;;
   esac
 fi
 
+echo "Done"
+popd
