@@ -13,6 +13,7 @@ set -x
 # 
 
 VERSION=14.2.0
+MAJVER=14
 
 BUILDROOT=${HOME}/work
 DEBDIR=gcc-$VERSION-1_arm64
@@ -110,11 +111,12 @@ mkdir -p ${INSTALLDIR}/DEBIAN || exit 1
 
 cat << EOF > ${INSTALLDIR}/DEBIAN/control
 Source: gcc
-Section: development
+Section: devel
+Provides: c-compiler
 Priority: optional
 Maintainer: unknown
 Rules-Requires-Root: no
-Package: gcc
+Package: gcc-${MAJVER}
 Version: $VERSION-1
 Architecture: arm64
 Description: Home brew gcc $VERSION
