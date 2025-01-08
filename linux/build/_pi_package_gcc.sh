@@ -13,11 +13,15 @@ set -x
 
 VERSION=14.2.0
 
+BUILDROOT=${HOME}/work
+DEBDIR=gcc-$VERSION-1_arm64
+INSTALLDIR=${BUILDROOT}/gcc-$VERSION/${DEBDIR}
+
 OPTS=$(cat << END
-     --enable-languages=c,c++ \
-     --disable-multilib \
-     --disable-werror   \
-     --disable-bootstrap
+   --enable-languages=c,c++ \
+   --disable-multilib       \
+   --disable-bootstrap      \
+   --prefix=${INSTALLDIR}/usr/local
 END
 )
 
@@ -29,20 +33,21 @@ END
 #  sudo /etc/init.d/dphys-swapfile restart
 #fi
 
-pushd ${HOME}/work || exit 1
+pushd ${BUILDROOT} || exit 1
 
 if [ -d gcc-$VERSION ]; then
   cd gcc-$VERSION
   rm -rf obj
 else
-  #wget https://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.xz || exit 1
+  if [[ ! -f gcc-$VERSION.tar.xz ]]; then
+    wget https://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-$VERSION/gcc-$VERSION.tar.xz || exit 1
+  fi
   tar xf gcc-$VERSION.tar.xz
   #rm -f gcc-$VERSION.tar.xz
   cd gcc-$VERSION
   contrib/download_prerequisites
-  dh_make -f ../gcc-$VERSION.tar.xz
 fi
-mkdir -p obj
+mkdir -p obj || exit 1
 cd obj
 
 #
@@ -91,16 +96,33 @@ cd obj
 #  The new compiler is placed in /usr/local/bin, the existing compiler remains
 #  in /usr/bin and may be used by giving its version gcc-8 (say).
 #
-if make #-j `nproc`
-then
-  echo
-  read -p "Do you wish to install the new GCC (y/n)? " yn
-  case $yn in
-     #[Yy]* ) sudo make install ;;
-     [Yy]* ) sudo checkinstall --install=no ;; #-D make install ;;
-	 * ) exit ;;
-  esac
-fi
+#make #-j `nproc`
+make 
+make install
+#sudo checkinstall --install=no ;; #-D make install ;;
+
+#
+#Debian pkg
+#
+cd ..
+mkdir -p ${INSTALLDIR}/DEBIAN || exit 1
+
+cat << EOF > ${INSTALLDIR}/DEBIAN/control
+Source: gcc
+Section: development
+Priority: optional
+Maintainer: unknown
+Rules-Requires-Root: no
+Package: gcc
+Version: $VERSION-1
+Architecture: arm64
+Description: Home brew gcc $VERSION
+EOF
+
+dpkg --build ${DEBDIR}
+ls -l *.deb
+dpkg-deb --info *.deb
+#dpkg-deb --contents *.deb
 
 echo "Done"
 popd
