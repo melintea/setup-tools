@@ -11,7 +11,7 @@ RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 BOLD=$(tput bold)
 
-VERSIONS=(11 12)
+VERSIONS=(11 12 14)
 
 alternative_cmds=(g++ cpp gcc-ar gcc-nm gcc-ranlib gcov gcov-dump gcov-tool lto-dump)
 
