@@ -127,5 +127,24 @@ ls -l *.deb
 dpkg-deb --info *.deb
 #dpkg-deb --contents *.deb
 
+cat << EOM
+TODO: postinstall & reverse on removing:
+
+    ln -s /usr/local/bin/gcc        /usr/bin/gcc-${MAJVER}
+    ln -s /usr/local/bin/g++        /usr/bin/g++-${MAJVER}
+    ln -s /usr/local/bin/gcc-ranlib /usr/bin/gcc-ranlib-${MAJVER}
+    ln -s /usr/local/bin/gcov       /usr/bin/gcov-${MAJVER}
+    ln -s /usr/local/bin/gcov-dump  /usr/bin/gcov-dump-${MAJVER}
+    ln -s /usr/local/bin/cpp        /usr/bin/cpp-${MAJVER}
+    ln -s /usr/local/bin/gcov-tool  /usr/bin/gcov-tool-${MAJVER}
+    ln -s /usr/local/bin/lto-dump   /usr/bin/lto-dump-${MAJVER}
+    ln -s /usr/local/bin/gcc-ar     /usr/bin/gcc-ar-${MAJVER}
+    ln -s /usr/local/bin/gcc-nm     /usr/bin/gcc-nm-${MAJVER}
+    
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${MAJVER}  ${MAJVER}  --slave /usr/bin/g++ g++ /usr/bin/g++-${MAJVER}
+    update-alternatives --config gcc
+    
+EOM
+
 echo "Done"
 popd

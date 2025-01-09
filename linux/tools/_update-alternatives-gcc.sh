@@ -40,6 +40,7 @@ for VERSION in "${VERSIONS[@]}"; do
         echo "Slave commands: ${alternative_cmds[*]}"
 	echo "Alts: ${alternative_string}"
 
+        echo "$install_command"
         eval "$install_command"
 
         # Check eval command's return value
