@@ -1,7 +1,12 @@
 AutoTowersGenerator
+BarbarianPlugin
 CustomSupportCylinder
 KlipperSettingsPlugin
 MeshTools
+MoonrakerConnection
 OrientationPlugin
 SettingsGuide
+TabPlus
+TabPlus-main.zip
+ThingiBrowser
 ZOffsetPlugin
