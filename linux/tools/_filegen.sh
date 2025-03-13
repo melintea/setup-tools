@@ -64,8 +64,6 @@ sh -c "cat > ${fname}.cpp" <<EOFcpp
  *  Copyright ${year} Aurelian Melinte.
  *  Released under GPL 3.0 or later.
  *
- *  You need a C++0x compiler.
- *
  */
 
 #include <lpt/${fname}.hpp>
