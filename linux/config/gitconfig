@@ -23,3 +23,6 @@
 	# Choose one of these 2 lines (not both!) explained below.
 	#cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
 	cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+[guitool "Checkout old version of file"]
+	cmd = git checkout $REVISION -- $FILENAME
+	confirm = yes
