@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#git remote add upstream https://...git
+
+git fetch upstream
+
+#git rebase upstream/master 
+git merge upstream/master master
+
