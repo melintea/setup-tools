@@ -22,8 +22,6 @@ sh -c "cat > ${fname}.hpp" <<EOFh
  *  Copyright ${year} Aurelian Melinte.
  *  Released under GPL 3.0 or later.
  *
- *  You need a C++0x compiler.
- *
  */
 
 #ifndef INCLUDED_${fname}_hpp_${guid}
