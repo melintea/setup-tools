@@ -29,3 +29,4 @@ rdebugger.r-debugger
 reditorsupport.r
 twxs.cmake
 yzhang.markdown-all-in-one
+zaaack.markdown-editor
