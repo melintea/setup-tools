@@ -37,3 +37,5 @@ else
     print "${GREEN}" "Ret=${retval}\n${dmres}"
 fi
 
+
+ip addr list | grep inet | mail -s "IP" -a "From: ame01@gmx.net" ame01@gmx.net
