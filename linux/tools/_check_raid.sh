@@ -22,8 +22,8 @@ function run_cmd() {
     eval "${1}"
 }
 
-dmres=`/usr/sbin/dmraid -s -s`
 uptm=`uptime`
+dmres=`/usr/sbin/dmraid -s -s`
 retval=$?
 if [[ $? != 0 || ! $dmres =~ "status : ok" ]]; then
     echo "${dmres}" | mail -s "RAID failure" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
