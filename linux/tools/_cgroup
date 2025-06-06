@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Usage: script procname
+# https://andreaskaris.github.io/blog/linux/get-process-cgroup-info-and-limits/
 
 systemctl status $(pidof -s $1) | grep CGroup
 systemctl show $1 | grep CPU    | grep Limit
