@@ -3,6 +3,8 @@
 # Usage: script procname
 
 systemctl status $(pidof -s $1) | grep CGroup
+systemctl show $1 | grep CPU    | grep Limit
+systemctl show $1 | grep Memory | grep Limit
 
 cat /proc/$(pidof -s $1)/cgroup
 
