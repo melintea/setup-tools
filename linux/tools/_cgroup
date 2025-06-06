@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Usage: script procname
+
+systemctl status $(pidof -s $1) | grep CGroup
+
+cat /proc/$(pidof -s $1)/cgroup
+
