@@ -12,6 +12,8 @@ set print union on
 set print demangle on 
 set print object on 
 
+catch throw
+
 #
 # User-defined commands
 #
