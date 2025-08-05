@@ -2,6 +2,8 @@
 
 # 
 # Check raid status. Must be root
+# Find assigned IP
+#
 # http://techie.org/Blog/2010/09/03/how-to-rebuild-intel-raid-isw-on-linux/
 # https://romaco.ca/blog/2012/05/28/recover-raid-array-with-dmraid/
 #
@@ -37,5 +39,33 @@ else
     print "${GREEN}" "Ret=${retval}\n${dmres}"
 fi
 
+# ------------------------------------------------------------------------
+
+#!/bin/bash
+
+INTERFACE="wlx0022c0164693"
+TIMEOUT=60
+INTERVAL=2
+
+#echo "Waiting for IP address on $INTERFACE..."
+#start_time=$(date +%s)
+while true; do
+    ip_address=$(ip -4 addr show $INTERFACE | grep -oP 'inet\s+\K[\d.]+')
+
+    if [ -n "$ip_address" ]; then
+        echo "IP address assigned: $ip_address"
+        break
+    fi
+
+    current_time=$(date +%s)
+    elapsed_time=$((current_time - start_time))
+
+    if [ "$elapsed_time" -ge "$TIMEOUT" ]; then
+        echo "Timeout: No IP address assigned to $INTERFACE within $TIMEOUT seconds."
+        break
+    fi
+
+    sleep "$INTERVAL"
+done
 
 ip addr list | grep inet | mail -s "IP" -a "From: ame01@gmx.net" ame01@gmx.net
