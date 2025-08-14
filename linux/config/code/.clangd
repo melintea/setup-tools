@@ -1,0 +1,19 @@
+#
+# In project's root folder
+#
+# Path: /.../bin/clangd
+# Args:
+# --compile-commands-dir=/.../compile_commands.json
+# --enable-config
+# --log=verbose
+# Fallback: --query-driver="/.../bin/clang++"
+#
+
+CompileFlags: 
+  Add: [
+    -IC:/builds/.../pub/inc, 
+    -IC:/builds/.../pub/inc
+  ]
+  #Remove: [-W*] 
+  #Compiler: clang++
+
