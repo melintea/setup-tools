@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+#
+# RCS wrapper for edit with history.
+# Usage: _rcsedit file
+#
+
+editor=${VISUAL:-${EDITOR:-vi}}
+printf "\nRCS wrapper for edit with history. Usage: $0 file\n\n"
+: ${1?"Missing file"}
+
+rcs=`which rcsdiff`
+if [ -z "$rcs" ]; then
+    echo "rcs is nto installed"
+    exit 1
+fi
+
+file="${1}"
+rcsfile="$file,v"
+
+if [ ! -f "$rcsfile" ]; then
+    echo "Initial file" | ci -l "$file" "$rcsfile"
+else 
+    ci -l "$file" "$rcsfile"
+fi
+
+$editor "$file"
+
+rcsdiff "$file" || true
+ci -l "$file" "$rcsfile"
+
+#rlog "$file" 
+#tkrev
