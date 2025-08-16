@@ -12,12 +12,17 @@ printf "\nRCS wrapper for edit with history. Usage: $0 file\n\n"
 
 rcs=`which rcsdiff`
 if [ -z "$rcs" ]; then
-    echo "rcs is nto installed"
+    echo "RCS is not installed"
     exit 1
 fi
 
 file="${1}"
 rcsfile="$file,v"
+
+if [ ! -f "file" ]; then
+    echo "No file: ${file}"
+    exit 1
+fi
 
 if [ ! -f "$rcsfile" ]; then
     echo "Initial file" | ci -l "$file" "$rcsfile"
