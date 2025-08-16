@@ -4,3 +4,5 @@
 
 ulimit -c unlimited
 
+export VISUAL=nedit
+
