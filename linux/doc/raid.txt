@@ -1,0 +1,3 @@
+* https://www.guyrutenberg.com/2013/12/01/setting-up-raid-using-mdadm-on-existing-drive/
+* https://askubuntu.com/questions/526747/setting-up-raid-1-on-14-04-with-an-existing-drive
+
