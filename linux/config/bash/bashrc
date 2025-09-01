@@ -15,6 +15,19 @@ function linkto() {
     fi
 }
 
+
+hooked=`cat ${HOME}/.bashrc | grep source | grep setup-tools/linux/config/bash/bashrc`
+if [ -z "$hooked" ]; then
+cat << EOL >> ${HOME}/.bashrc
+#
+#
+#
+source ${HOME}/work/github/setup-tools/linux/config/bash/bashrc
+
+EOL
+fi
+
+
 export CUSTOMCFGROOT=${HOME}/work/github/setup-tools/linux/config
 pushd ${CUSTOMCFGROOT} && git pull --rebase && popd
 
@@ -32,5 +45,4 @@ linkto ${CUSTOMCFGROOT}/vimrc        ${HOME}/.vimrc
 # 
 # 
 # 
-
 
