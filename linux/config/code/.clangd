@@ -6,7 +6,7 @@
 # --compile-commands-dir=/.../compile_commands.json
 # --enable-config
 # --log=verbose
-# Fallback: --query-driver="/.../bin/clang++"
+# --query-driver="/.../bin/clang++"
 #
 
 CompileFlags: 
@@ -14,6 +14,7 @@ CompileFlags:
     -IC:/builds/.../pub/inc, 
     -IC:/builds/.../pub/inc
   ]
+  BuiltinHeaders: QueryDriver
   #Remove: [-W*] 
   #Compiler: clang++
 
