@@ -19,6 +19,7 @@ function linkto() {
 hooked=`cat ${HOME}/.bashrc | grep source | grep setup-tools/linux/config/bash/bashrc`
 if [ -z "$hooked" ]; then
 cat << EOL >> ${HOME}/.bashrc
+
 #
 #
 #
