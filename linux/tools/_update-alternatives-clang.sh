@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 # @see https://raw.githubusercontent.com/ShangjinTang/dotfiles/05ef87daae29475244c276db5d406b58c52be445/linux/ubuntu/22.04/bin/update-alternatives-clang
+# @see https://ubuntuhandbook.org/index.php/2023/09/how-to-install-clang-17-or-16-in-ubuntu-22-04-20-04/#comments
+# @see https://apt.llvm.org/
 # 
 # wget https://apt.llvm.org/llvm.sh
-# chmod +x ./llvm.sh && sudo ./llvm.sh
+# chmod +x ./llvm.sh && sudo ./llvm.sh 21 all
 # sudo bash ./update-alternatives-clang
 
 
