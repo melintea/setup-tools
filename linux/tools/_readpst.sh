@@ -5,5 +5,6 @@
 #
 
 #readpst -M -b -e -o export_folder pst_archive.pst
-readpst -M -b -e -o . $1
+readpst -b -u -o . $1
+tree -apsDC .
 
