@@ -9,7 +9,7 @@ out=${out%.*}
 mkdir $out
 
 #readpst -M -b -e -o export_folder pst_archive.pst
-readpst  -u -o $out $1
+readpst -D -u -o $out $1
 #tree -apsDC .
 
 find $out -type d | grep -v '^'"$out"'$' | tac | xargs -d '\n' -I{} mv {} {}.sbd
