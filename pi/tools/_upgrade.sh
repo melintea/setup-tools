@@ -1,17 +1,21 @@
 #!/bin/bash
 
 # 
-# To trixie Pi OS
+# To next/trixie Pi OS
+# 
 # https://forums.raspberrypi.com/viewtopic.php?t=392376
 #
+
+fromdist=bookworm
+todist=trixie
 
 sudo su
 
 apt update && sudo apt full-upgrade
 pisafe
 
-sed -i 's/bookworm/trixie/g' /etc/apt/sources.list
-find /etc/apt/sources.list.d -type f -exec sed -i 's/bookworm/trixie/g' {};
+sed -i "s/${fromdist}/${todist}/g" /etc/apt/sources.list
+find /etc/apt/sources.list.d -type f -exec sed -i "s/${fromdist}/${todist}/g" {};
 
 apt update
 apt purge -y raspberry-ui-mode
