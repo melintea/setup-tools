@@ -32,16 +32,16 @@ fi
 export CUSTOMCFGROOT=${HOME}/work/github/setup-tools/linux/config
 pushd ${CUSTOMCFGROOT} && git pull --rebase && popd
 
-CONFIGDIR=${CUSTOMCFGROOT}/bash
-. ${CONFIGDIR}/aliases
-. ${CONFIGDIR}/display
-. ${CONFIGDIR}/path
-. ${CONFIGDIR}/ps1
-. ${CONFIGDIR}/varia
-
 linkto ${CUSTOMCFGROOT}/gdb/gdbinit  ${HOME}/.gdbinit
 linkto ${CUSTOMCFGROOT}/gitconfig    ${HOME}/.gitconfig
 linkto ${CUSTOMCFGROOT}/vimrc        ${HOME}/.vimrc
+
+
+CONFIGDIR=${CUSTOMCFGROOT}/bash
+for cfgfile in ${CONFIGDIR}/_*; do
+    #echo "Processing ${cfgfile}"
+    . ${cfgfile}
+done
 
 # 
 # 
