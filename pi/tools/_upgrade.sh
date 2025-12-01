@@ -4,6 +4,7 @@
 # To next/trixie Pi OS
 # 
 # https://forums.raspberrypi.com/viewtopic.php?t=392376
+# https://gist.github.com/jauderho/5f73f16cac28669e56608be14c41006c
 #
 
 fromdist=bookworm
@@ -25,4 +26,6 @@ apt full-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--f
 
 apt install -y rpd-wayland-all rpd-x-all
 #apt install -y raspberry-ui-mods
+
+apt install --reinstall raspberrypi-archive-keyring
 
