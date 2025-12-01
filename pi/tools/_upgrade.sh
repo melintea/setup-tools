@@ -18,7 +18,7 @@ sed -i "s/${fromdist}/${todist}/g" /etc/apt/sources.list
 find /etc/apt/sources.list.d -type f -exec sed -i "s/${fromdist}/${todist}/g" {};
 
 apt update
-apt purge -y raspberry-ui-mode
+apt purge -y raspberry-ui-mods
 apt autoremove -y
 
 apt full-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" --purge --auto-remove
