@@ -24,5 +24,5 @@ apt autoremove -y
 apt full-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" --purge --auto-remove
 
 apt install -y rpd-wayland-all rpd-x-all
-#apt install -y raspberry-ui-mode
+#apt install -y raspberry-ui-mods
 
