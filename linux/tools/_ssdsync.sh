@@ -18,3 +18,5 @@ fi
 
 rsync -avzuxHAX /home/ /tmp/sda5/home/
 
+umount /tmp/sda5
+
