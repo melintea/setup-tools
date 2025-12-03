@@ -16,5 +16,5 @@ if [ ! -d "/tmp/sda5/home" ]; then
   exit 1
 fi
 
-rsync -avz /home/ /tmp/sda5/home/
+rsync -avzuxHAX /home/ /tmp/sda5/home/
 
