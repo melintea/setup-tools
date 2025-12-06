@@ -29,6 +29,8 @@ if [[ $? != 0 || ! $dmres =~ "status : ok" ]]; then
   print "${RED}" "FAIL WITH: ${retval}\n${dmres}\n"
   exit 1
 fi
+echo "Last successful run:"
+ls -l "$0"
 
 
 mkdir /tmp/sda5
