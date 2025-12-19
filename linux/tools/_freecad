@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#pushd ~/freecad0212-squashfs-root
-pushd ~/freecad100-squashfs-root
+pushd ~/bin/freecad0212-squashfs-root
+#pushd ~/bin/freecad100-squashfs-root
 
 ./AppRun
 popd
