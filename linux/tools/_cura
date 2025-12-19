@@ -1,5 +1,5 @@
 #!/bin/bash
 
-pushd ~/cura-squashfs-root
+pushd ~/bin/cura-squashfs-root
 ./AppRun
 popd
