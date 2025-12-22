@@ -1,3 +1,7 @@
 PETG:
 - speed: nominal 40 but 80 ok for walls; 100: click noises, bad print
 
+Cleanup
+- PETG 240
+- PLA  200
+- TPU  230
