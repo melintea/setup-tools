@@ -25,18 +25,26 @@ function run_cmd() {
 }
 
 uptm=`uptime`
-dmres=`/usr/sbin/dmraid -s -s`
-retval=$?
-if [[ $? != 0 || ! $dmres =~ "status : ok" ]]; then
-    echo "${dmres}" | mail -s "RAID failure" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
-    print "${RED}" "FAIL WITH: ${retval}\n${dmres}\n"
-    run_cmd "/usr/sbin/dmsetup status"
-    run_cmd "/usr/sbin/dmraid -r"
-    run_cmd "/usr/sbin/dmraid -tvay"
-    run_cmd "/usr/bin/lsblk"
-else
-    print "${dmres}\n\n${uptm}" | mail -s "RAID status: ok" -a "From: ame01@gmx.net" ame01@gmx.net
-    print "${GREEN}" "Ret=${retval}\n${dmres}"
+if [[ -f /usr/sbin/dmraid ]]; then
+  dmres=`/usr/sbin/dmraid -s -s`
+  retval=$?
+  if [[ $? != 0 || ! $dmres =~ "status : ok" ]]; then
+      echo "${dmres}" | mail -s "RAID failure" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
+      print "${RED}" "FAIL WITH: ${retval}\n${dmres}\n"
+      run_cmd "/usr/sbin/dmsetup status"
+      run_cmd "/usr/sbin/dmraid -r"
+      run_cmd "/usr/sbin/dmraid -tvay"
+      run_cmd "/usr/bin/lsblk"
+  else
+      print "${dmres}\n\n${uptm}" | mail -s "RAID status: ok" -a "From: ame01@gmx.net" ame01@gmx.net
+      print "${GREEN}" "Ret=${retval}\n${dmres}"
+  fi
+fi
+
+if [[ -f /proc/mdstat ]]; then
+  mdres=`cat /proc/mdstat`
+  subj=`echo "${mdres}" | grep 'blocks super'`
+  echo "${mdres}" | mail -s "mdraid: ${subj}" -a "From: ame01@gmx.net" ame01@gmx.net
 fi
 
 # ------------------------------------------------------------------------
@@ -44,11 +52,11 @@ fi
 #!/bin/bash
 
 INTERFACE="wlx0022c0164693"
-TIMEOUT=60
+TIMEOUT=10
 INTERVAL=2
 
 #echo "Waiting for IP address on $INTERFACE..."
-#start_time=$(date +%s)
+start_time=$(date +%s)
 while true; do
     ip_address=$(ip -4 addr show $INTERFACE | grep -oP 'inet\s+\K[\d.]+')
 
