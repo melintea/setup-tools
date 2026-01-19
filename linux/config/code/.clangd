@@ -9,12 +9,56 @@
 # --query-driver="/.../bin/clang++"
 #
 
-CompileFlags: 
+CompileFlags:
   Add: [
-    -IC:/builds/.../pub/inc, 
-    -IC:/builds/.../pub/inc
+    -IC:/builds/core_main_systest/pub/inc,
+    -IC:/builds/core_main_team_css.dev/pub/inc,
+    -IC:/builds/data_main_systest/pub/inc,
+    -IC:/builds/edge_callsession.service.latest_systest/pub/inc,
+    -IC:/builds/edge_callsession.service.latest_team_css.dev/pub/inc,
+    -IC:/builds/edge_main_systest/pub/inc,
+    -IC:/builds/edge_main_team_css.dev/pub/inc,
+    -IC:/builds/edge_sip.service.latest_systest/pub/inc,
+    -IC:/builds/edge_sip.service.latest_team_css.dev/pub/inc,
+    -IC:/builds/ininbuild_main_systest/pub/inc,
+    -IC:/builds/media_main_systest/pub/inc,
+    -IC:/builds/media_main_team_css.dev/pub/inc,
+    -IC:/builds/services_main_systest/pub/inc,
+    -IC:/builds/services_main_team_css.dev/pub/inc,
+    -IC:/builds/system_main_systest/pub/inc,
+    -IC:/builds/edge_main_systest/pub/dists/bladewarevxml/vxml/include,
+    -IC:/builds/edge_main_team_css.dev/pub/dists/bladewarevxml/vxml/include,
+    -IC:/builds/system_main_systest/pub/dists/abseil-cpp/absl/time/internal/cctz/include,
+    -IC:/builds/system_main_systest/pub/dists/ace/ACE_wrappers/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/boost/fusion/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/boost/spirit/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/boost/spirit/repository/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/beast/test/extras/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/metaparse/tools/benchmark/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/mpl/preprocessed/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/mqtt5/test/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/mysql/test/common/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/mysql/test/integration/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/mysql/test/unit/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/numeric/ublas/IDEs/qtcreator/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/libs/phoenix/test/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/tools/auto_index/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/tools/cmake/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/tools/docca/include,
+    -IC:/builds/system_main_systest/pub/dists/boost/tools/quickbook/test/include,
+    -IC:/builds/system_main_systest/pub/dists/libaio/include,
+    -IC:/builds/system_main_systest/pub/dists/libbacktrace/include,
+    -IC:/builds/system_main_systest/pub/dists/libjemalloc/include,
+    -IC:/builds/system_main_systest/pub/dists/libnl/include,
+    -IC:/builds/system_main_systest/pub/dists/opentelemetry-cpp/api/include,
+    -IC:/builds/system_main_systest/pub/dists/opentelemetry-cpp/ext/include,
+    -IC:/builds/system_main_systest/pub/dists/pcap/windows/include,
+    -IC:/builds/system_main_systest/pub/dists/spidermonkey/js/src/ctypes/libffi/include,
+    -IC:/builds/system_main_systest/pub/dists/turtle/include,
+    -IC:/builds/system_main_systest/pub/dists/util-linux/include,
+    "-std=c++23"
   ]
   BuiltinHeaders: QueryDriver
-  #Remove: [-W*] 
-  #Compiler: clang++
+  #Remove: [-W*]
+  Compiler: E:/builds/downloads/toolchains/pub/tools/winhost/clang_llvm/21.1.8/bin/clang++.exe
 
