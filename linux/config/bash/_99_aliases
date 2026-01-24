@@ -17,4 +17,4 @@ alias gdb163='f(){ /usr/bin/cgdb -d ${GDB:-/usr/bin/gdb} "$@"; unset -f f; }; f'
 alias gdb='f(){ /usr/bin/cgdb -d /usr/bin/gdb "$@"; unset -f f; }; f'
 alias rgdb='f(){ GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX,-AVX2,-AVX512BW,-AWX512DQ,-AVX512F,-AVX512VL,-BMI1,-BMI2,-LZCNT,-MOVBE,-RTM,-SSE4_1,-SSE4_2,-SSSE3 ${GDB:-/usr/bin/gdb} "$@"; unset -f f; }; f'
 
-alias spin='f(){ if [ -f  /home/amelinte/work/Spin/Src/spin ]; then  /home/amelinte/work/Spin/Src/spin "$@" *; else  spin "$@" *; fi; unset -f f; }; f'
+alias spin='f(){ if [ -f  ${HOME}/work/Spin/Src/spin ]; then ${HOME}/work/Spin/Src/spin "$@" *; else spin "$@" *; fi; unset -f f; }; f'
