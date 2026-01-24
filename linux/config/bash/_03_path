@@ -4,3 +4,5 @@
 
 export PATH=${PATH}:${HOME}/work/github/setup-tools/linux/tools:${HOME}/.local/bin
 
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
+
