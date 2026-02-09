@@ -1,9 +1,12 @@
-set auto-load safe-path /
+#
+#
+#
 
 set verbose on
 
 set breakpoint pending on
 set auto-load safe-path /
+set auto-load gdb-scripts on
 
 set print address on 
 set print symbol-filename on 
