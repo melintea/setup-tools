@@ -25,12 +25,7 @@ python
 import os
 
 CUSTOMCFGROOT = os.getenv('CUSTOMCFGROOT', '')
-
-gdb.execute('source %s/gdb/addrtosym'%CUSTOMCFGROOT)
-gdb.execute('source %s/gdb/procinfo'%CUSTOMCFGROOT)
-gdb.execute('source %s/gdb/stl'%CUSTOMCFGROOT)
-gdb.execute('source %s/gdb/pstack'%CUSTOMCFGROOT)
-gdb.execute('source %s/gdb/trace_call'%CUSTOMCFGROOT)
+gdb.execute('source %s/gdb/load_scripts.py'%CUSTOMCFGROOT)
 
 #
 #
