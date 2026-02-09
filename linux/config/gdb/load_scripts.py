@@ -1,3 +1,7 @@
+#
+# Load all _* scripts
+#
+
 import os
 import glob
 

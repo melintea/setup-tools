@@ -19,7 +19,7 @@ set print object on
 catch throw
 
 #
-# User-defined commands
+# Load all _* scripts
 #
 python
 import os
