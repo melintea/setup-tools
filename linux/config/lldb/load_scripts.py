@@ -7,11 +7,9 @@ import os
 import glob
 
 def __lldb_init_module(debugger, internal_dict):
-    file_path = os.path.realpath(__file__)
-    dir_name = os.path.dirname(file_path)
-    load_python_scripts_dir(dir_name)
+    load_python_scripts_dir()
 
-def load_python_scripts_dir(dir_name):
+def load_python_scripts_dir():
     search_dir = os.environ['CUSTOMCFGROOT']
     pattern = os.path.join(search_dir, 'lldb', '_**')
     files = glob.glob(pattern, recursive=True)
