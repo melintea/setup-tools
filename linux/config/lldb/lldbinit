@@ -4,3 +4,13 @@
 
 settings set target.load-cwd-lldbinit true
 
+#
+# Load all _* scripts
+#
+
+script import os
+script lldb.debugger.HandleCommand('command script import ' + os.environ['CUSTOMCFGROOT'] + '/lldb/load_scripts.py')
+
+#
+#
+#
