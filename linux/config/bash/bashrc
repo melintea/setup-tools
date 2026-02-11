@@ -32,9 +32,10 @@ fi
 export CUSTOMCFGROOT=${HOME}/work/github/setup-tools/linux/config
 pushd ${CUSTOMCFGROOT} && git pull --rebase && popd
 
-linkto ${CUSTOMCFGROOT}/gdb/gdbinit  ${HOME}/.gdbinit
-linkto ${CUSTOMCFGROOT}/gitconfig    ${HOME}/.gitconfig
-linkto ${CUSTOMCFGROOT}/vimrc        ${HOME}/.vimrc
+linkto ${CUSTOMCFGROOT}/gdb/gdbinit    ${HOME}/.gdbinit
+linkto ${CUSTOMCFGROOT}/lldb/lldbinit  ${HOME}/.lldbinit
+linkto ${CUSTOMCFGROOT}/gitconfig      ${HOME}/.gitconfig
+linkto ${CUSTOMCFGROOT}/vimrc          ${HOME}/.vimrc
 
 
 CONFIGDIR=${CUSTOMCFGROOT}/bash
