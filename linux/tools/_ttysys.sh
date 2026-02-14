@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Graph cpu/memory in terminal
+#
+# Mem/cpu graphs in console
 # https://github.com/rigel314/ttysys
+#
 
-build/target/ttysys vhmdhh1r2rh3r4
+./ttysys vhmdhh1r2rh3r4
 

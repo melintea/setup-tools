@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#
+# Wrap https://github.com/andikleen/pmu-tools
+#
+
+#alias perf=/opt/inin/edge/perf-4.19.165
+echo "-1" | sudo tee  /proc/sys/kernel/perf_event_paranoid 
+#echo "always" | sudo tee /sys/kernel/mm/transparent_hugepage/enabled 
+echo "madvise" | sudo tee /sys/kernel/mm/transparent_hugepage/enabled 
+PERF=/opt/inin/edge/perf-4.19.165 toplev.py $* 
+
