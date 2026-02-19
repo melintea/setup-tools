@@ -45,7 +45,7 @@ if [[ -f /proc/mdstat ]]; then
   mdres=`cat /proc/mdstat`
   subj=`echo "${mdres}" | grep 'blocks super'`
   if [[ ! $subj =~ "[2/2] [UU]" ]]; then
-      echo "${mdres}" | mail -s "FAILED mdraid: ${subj}" -a "From: ame01@gmx.net" ame01@gmx.net
+      echo "${mdres}" | mail -s "FAILED mdraid: ${subj}" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
   else
       echo "${mdres}" | mail -s "OK mdraid: ${subj}" -a "From: ame01@gmx.net" ame01@gmx.net
   fi
