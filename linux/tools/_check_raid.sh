@@ -29,14 +29,14 @@ if [[ -f /usr/sbin/dmraid ]]; then
   dmres=`/usr/sbin/dmraid -s -s`
   retval=$?
   if [[ $? != 0 || ! $dmres =~ "status : ok" ]]; then
-      echo "${dmres}" | mail -s "RAID failure" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
+      echo "${dmres}" | mail -s "${HOSTNAME} RAID failure" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
       print "${RED}" "FAIL WITH: ${retval}\n${dmres}\n"
       run_cmd "/usr/sbin/dmsetup status"
       run_cmd "/usr/sbin/dmraid -r"
       run_cmd "/usr/sbin/dmraid -tvay"
       run_cmd "/usr/bin/lsblk"
   else
-      print "${dmres}\n\n${uptm}" | mail -s "RAID status: ok" -a "From: ame01@gmx.net" ame01@gmx.net
+      print "${dmres}\n\n${uptm}" | mail -s "${HOSTNAME} RAID status: ok" -a "From: ame01@gmx.net" ame01@gmx.net
       print "${GREEN}" "Ret=${retval}\n${dmres}"
   fi
 fi
@@ -45,9 +45,9 @@ if [[ -f /proc/mdstat ]]; then
   mdres=`cat /proc/mdstat`
   subj=`echo "${mdres}" | grep 'blocks super'`
   if [[ ! $subj =~ "[2/2] [UU]" ]]; then
-      echo "${mdres}" | mail -s "FAILED mdraid: ${subj}" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
+      echo "${mdres}" | mail -s "${HOSTNAME} FAILED mdraid: ${subj}" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
   else
-      echo "${mdres}" | mail -s "OK mdraid: ${subj}" -a "From: ame01@gmx.net" ame01@gmx.net
+      echo "${mdres}" | mail -s "${HOSTNAME} OK mdraid: ${subj}" -a "From: ame01@gmx.net" ame01@gmx.net
   fi
 fi
 
@@ -80,4 +80,4 @@ while true; do
     sleep "$INTERVAL"
 done
 
-ip addr list | grep inet | mail -s "IP" -a "From: ame01@gmx.net" ame01@gmx.net
+ip addr list | grep inet | mail -s "${HOSTNAME} IP" -a "From: ame01@gmx.net" ame01@gmx.net
