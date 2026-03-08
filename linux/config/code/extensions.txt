@@ -3,6 +3,7 @@ github.remotehub
 jebbs.plantuml
 llvm-vs-code-extensions.vscode-clangd
 mechatroner.rainbow-csv
+mhutchie.git-graph
 ms-python.debugpy
 ms-python.python
 ms-python.vscode-pylance
@@ -19,6 +20,7 @@ ms-vscode-remote.remote-wsl
 ms-vscode-remote.vscode-remote-extensionpack
 ms-vscode.azure-repos
 ms-vscode.cmake-tools
+ms-vscode.cpp-devtools
 ms-vscode.cpptools
 ms-vscode.cpptools-extension-pack
 ms-vscode.cpptools-themes
