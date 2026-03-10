@@ -9,6 +9,7 @@ alias snav="/opt/sourcenav/bin/snavigator"
 alias grep="grep --color -In"
 alias ll="ls -al"
 alias tree="tree -apsDC"
+alias libtree="libtree -vvvp"
 
 alias regrep='f(){ grep -RE "$@" *; unset -f f; }; f'
 
