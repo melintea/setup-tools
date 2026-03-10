@@ -19,7 +19,7 @@ autotools-dev binutils-dev build-essentials cmake make ninja-build checkinstall 
 bison flex g++ cgdb gdb clang clang-tidy lldb rr \
 zeal doxygen graphviz \
 linux-tools-common linux-tools-generic linux-tools-`uname -r` \
-google-perftools libgoogle-perftools-dev libbenchmark-dev graphviz \
+google-perftools libgoogle-perftools-dev libbenchmark-dev graphviz libtree \
 papi-tools papi-examples libpapi-dev \
 adb fastboot \
 rstudio 
