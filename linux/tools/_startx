@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#
+#
+#
+
+sudo systemctl restart gdm3
+
