@@ -1,5 +1,5 @@
 [alias]
-	graph = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short --all --graph 
+	graph = log --graph --all --abbrev-commit --decorate --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short 
 
 [credential "https://github.com"]
 	helper = 
