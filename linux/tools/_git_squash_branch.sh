@@ -11,4 +11,5 @@ fi
 BRANCH=$1
 git checkout $BRANCH} || exit 1
 git reset --soft main
-git commit -m "${BRANCH}: all changes"
+git status
+#git commit -m "${BRANCH}: all changes"
