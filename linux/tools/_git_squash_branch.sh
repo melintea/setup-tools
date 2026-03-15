@@ -9,5 +9,6 @@ if [ $# -ne 1 ]; then
 fi
 
 BRANCH=$1
-git merge --squash ${BRANCH}
+git checkout $BRANCH} || exit 1
+git reset --soft main
 git commit -m "${BRANCH}: all changes"
