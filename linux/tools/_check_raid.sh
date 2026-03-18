@@ -44,10 +44,10 @@ fi
 if [[ -f /proc/mdstat ]]; then
   mdres=`cat /proc/mdstat`
   subj=`echo "${mdres}" | grep 'blocks super'`
-  if [[ ! $subj =~ "[2/2] [UU]" ]]; then
-      echo "${mdres}" | mail -s "${HOSTNAME} FAILED mdraid: ${subj}" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
-  elif [[ "x$subj" == "x" ]]; then
+  if [[ "x$subj" == "x" ]]; then
       echo "${mdres}" | mail -s "${HOSTNAME} No mdraid: -${subj}-" -a "From: ame01@gmx.net" ame01@gmx.net
+  elif [[ ! $subj =~ "[2/2] [UU]" ]]; then
+      echo "${mdres}" | mail -s "${HOSTNAME} FAILED mdraid: ${subj}" -a "X-Priority:1" -a "From: ame01@gmx.net" ame01@gmx.net
   else
       echo "${mdres}" | mail -s "${HOSTNAME} OK mdraid: ${subj}" -a "From: ame01@gmx.net" ame01@gmx.net
   fi
