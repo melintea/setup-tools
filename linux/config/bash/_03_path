@@ -9,5 +9,10 @@ if [ -f  ${SPINHOME}/Src/spin ]; then
     export PATH=${SPINHOME}/Src:${PATH}
 fi
 
+MELDHOME=${HOME}/work/meld
+if [ -f  ${MELDHOME}/bin/meld ]; then
+    export PATH=${MELDHOME}/bin:${PATH}
+fi
+
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
