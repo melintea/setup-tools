@@ -3,10 +3,11 @@
 
 
 export PATH=${HOME}/work/github/setup-tools/linux/tools:${HOME}/.local/bin:${PATH}
-if [ -f  ${HOME}/work/github/Spin16/Src/spin ]; then
-    export PATH=${HOME}/work/github/Spin16/Src:${PATH}
-fi
 
+SPINHOME=${HOME}/work/github/Spin16
+if [ -f  ${SPINHOME}/Src/spin ]; then
+    export PATH=${SPINHOME}/Src:${PATH}
+fi
 
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
