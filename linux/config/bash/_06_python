@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+if [ ! -d "$HOME/.py3.12" ]; then
+    echo "No python virtual env, run: python3 -m venv $HOME/.py3.12"
+else
+    source $HOME/.py3.12/bin/activate
+    which python3
+fi
+
+
