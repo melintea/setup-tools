@@ -10,3 +10,5 @@ WINDOWS_USER=$(/mnt/c/Windows/System32/cmd.exe /c 'echo %USERNAME%' | sed -e 's/
 alias _code="/mnt/c/Users/$WINDOWS_USER/AppData/Local/Programs/cursor/Cursor.exe"
 alias _notepad="/mnt/c/Program\ Files/Notepad++/notepad++.exe"
 
+eval $(ssh-agent)
+
