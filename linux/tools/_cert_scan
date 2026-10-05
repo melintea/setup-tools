@@ -1,0 +1,24 @@
+#!/bin/env bash
+
+# scan drive for certificates
+
+shopt -s globstar nullglob
+
+clear
+
+function certscan() {
+    for file in $1/**/*; do
+        #echo "--- $file"
+        if [[ -f "$file" ]]; then
+            if grep -q "BEGIN CERTIFICATE" "$file"; then
+                echo "==== $file"
+                openssl crl2pkcs7 -nocrl -certfile  "$file"  | openssl pkcs7 -print_certs -text -noout
+            fi
+        fi
+    done
+}
+
+certscan /etc
+certscan /home/ec2-user
+certscan /opt/inin
+
