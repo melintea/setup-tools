@@ -2,7 +2,7 @@
 
 
 
-export PATH=${HOME}/work/github/setup-tools/linux/tools:${HOME}/.local/bin:${PATH}
+export PATH=${HOME}/work/github/setup-tools/linux/tools:${HOME}/.local/bin:${HOME}/bin:${PATH}
 
 SPINHOME=${HOME}/work/github/Spin16
 if [ -f  ${SPINHOME}/Src/spin ]; then
