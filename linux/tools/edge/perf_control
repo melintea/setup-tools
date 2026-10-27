@@ -1,0 +1,24 @@
+#!/bin/bash
+set -x
+
+#echo "$#: $@"
+
+sudo rm perf.data*
+sudo /opt/inin/edge/perf-4.19.165 record --call-graph fp -p `pidof ininedgecontrol` sleep 10
+sudo /opt/inin/edge/perf-4.19.165 report -i perf.data --stdio > perf.control.graph.txt 
+read -p "Pres Enter to continue" < /dev/tty
+
+sudo rm perf.data*
+sudo /opt/inin/edge/perf-4.19.165 record -p `pidof ininedgecontrol` sleep 10
+sudo /opt/inin/edge/perf-4.19.165 report -i perf.data --stdio > perf.control.flat.txt 
+read -p "Pres Enter to continue" < /dev/tty
+
+sudo rm perf.data*
+sudo /opt/inin/edge/perf-4.19.165 record --call-graph fp -a sleep 10
+sudo /opt/inin/edge/perf-4.19.165 report -i perf.data --stdio > perf.all.graph.txt
+read -p "Pres Enter to continue" < /dev/tty
+
+sudo rm perf.data*
+sudo /opt/inin/edge/perf-4.19.165 record -a sleep 10
+sudo /opt/inin/edge/perf-4.19.165 report -i perf.data --stdio > perf.all.flat.txt
+

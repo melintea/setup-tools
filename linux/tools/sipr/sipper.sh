@@ -26,5 +26,5 @@ export SRUN=srun
 
 
 touch ./.sipper.proj
-${SRUN} $*
+${SRUN} $@
 

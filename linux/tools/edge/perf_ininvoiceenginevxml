@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#echo "$#: $@"
+
+#sudo /opt/inin/edge/perf-4.19.165 record --call-graph fp /opt/inin/edge/bin/ininvoiceenginevxml-l64r-1-0 $@
+##sudo perf record  /opt/inin/edge/bin/ininvoiceenginevxml-l64r-1-0 $@
+
+#LD_DEBUG=all /opt/inin/edge/bin/ininvoiceenginevxml-l64r-1-0 $@  &> /tmp/symload 
+#LD_DEBUG=statistics /opt/inin/edge/bin/ininvoiceenginevxml-l64r-1-0 $@  &> /tmp/symstats 
+
+LD_PROFILE_OUTPUT=/tmp  LD_PROFILE=i3core-l64r-21-3.so   /opt/inin/edge/bin/ininvoiceenginevxml-l64r-1-0 $@  
+

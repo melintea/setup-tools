@@ -14,5 +14,5 @@ echo "$1 => ${EXECUTABLE}"
     -iex "set logging file _gdb.$1.log" -iex "set logging on" \
     -iex "set solib-absolute-prefix ${FOLDER}"  \
     ${FOLDER}/${EXECUTABLE} \
-    $*
+    $@
 
