@@ -4,5 +4,6 @@
 # https://gist.github.com/pankkor/6354d3c155fa82f93bca30ca200b6864
 #  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/tools/perf/perf-archive.sh
 #  Save it as perf-archive to $(perf --exec-path)/perf-archive
+#  Remote: use ~/.debug
 #
 
