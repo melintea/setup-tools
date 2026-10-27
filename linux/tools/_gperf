@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#
+# 
+#
+
+# apt isntall google-perftools
+
+#CPUPROFILESIGNAL=12 
+CPUPROFILE=/tmp/gprof.prof \
+LD_PRELOAD=/usr/local/lib/libprofile.so.0 \
+  $@
+
+# --gv | --pdf | --web
+google-pprof --web "$1" /tmp/gprof.prof
