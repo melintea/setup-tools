@@ -1,9 +1,187 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# _perf_remote — gather a perf profile on this machine (machine A) for
+# later analysis on another machine (machine B).
+#
+# It will:
+#   1. Check that `perf` and `perf-archive` are installed.
+#   2. If `perf-archive` is missing, fetch it from the kernel source tree and
+#      install it into perf's exec path.
+#   3. Run `perf record` (args passed through) and then `perf archive`.
+#   4. Print the instructions for unpacking and analyzing on machine B.
+#
+# Usage:
+#   ./_perf_remote -- <command to profile> [args...]
+#   ./_perf_remote -- -p <pid> -g -- sleep 10
+#   ./_perf_remote -- -a -g -- sleep 10          # system-wide
+#
+# Everything after the first `--` is forwarded verbatim to `perf record`.
+# If no record args are given, a sensible default (-a -g sleep 10) is used.
+#
+# Reference: https://gist.github.com/pankkor/6354d3c155fa82f93bca30ca200b6864
 
-#
-# https://gist.github.com/pankkor/6354d3c155fa82f93bca30ca200b6864
-#  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/tools/perf/perf-archive.sh
-#  Save it as perf-archive to $(perf --exec-path)/perf-archive
-#  Remote: use ~/.debug
-#
+set -euo pipefail
+
+# --- configuration ----------------------------------------------------------
+
+PERF_DATA="perf.data"
+PERF_ARCHIVE_URL="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/tools/perf/perf-archive.sh"
+
+# Default record arguments if the caller supplies none (after `--`).
+DEFAULT_RECORD_ARGS=(-a -g -- sleep 10)
+
+# --- helpers -----------------------------------------------------------------
+
+log()  { printf '==> %s\n' "$*"; }
+warn() { printf 'WARN: %s\n' "$*" >&2; }
+die()  { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
+
+# --- preconditions -----------------------------------------------------------
+
+[[ $EUID -eq 0 ]] || die \
+    "this script must be run as root (installing perf-archive and perf record
+     typically require root). Re-run with: sudo $0 $*"
+
+command -v perf >/dev/null 2>&1 || die \
+    "'perf' is not installed. Install it first, e.g.:
+       Debian/Ubuntu:  sudo apt install linux-perf   (or linux-tools-\$(uname -r))
+       Fedora:         sudo dnf install perf"
+
+# --- ensure perf-archive is installed ----------------------------------------
+
+ensure_perf_archive() {
+    local exec_path dest tmp fetch
+    exec_path="$(perf --exec-path)"
+    dest="${exec_path%/}/perf-archive"
+
+    if [[ -x "$dest" ]]; then
+        log "perf-archive already installed: $dest"
+        return 0
+    fi
+
+    log "perf-archive not found at $dest; fetching and installing it."
+
+    # Pick a downloader that is available.
+    if command -v curl >/dev/null 2>&1; then
+        fetch=(curl -fsSL -o)
+    elif command -v wget >/dev/null 2>&1; then
+        fetch=(wget -qO)
+    else
+        die "need 'curl' or 'wget' to download perf-archive"
+    fi
+
+    tmp="$(mktemp)"
+    trap 'rm -f "$tmp"' RETURN
+
+    log "Downloading perf-archive from $PERF_ARCHIVE_URL"
+    "${fetch[@]}" "$tmp" "$PERF_ARCHIVE_URL" \
+        || die "failed to download perf-archive"
+
+    [[ -s "$tmp" ]] || die "downloaded perf-archive is empty"
+
+    log "Installing to $dest"
+    install -m 0755 "$tmp" "$dest"
+
+    [[ -x "$dest" ]] \
+        || die "perf-archive still not present after install; check $dest and your perf exec path"
+
+    log "perf-archive installed: $dest"
+}
+
+# --- relax perf restrictions -------------------------------------------------
+
+# Lower the kernel's perf restrictions so profiling (including user-space
+# callers after collection) can resolve events and kernel symbols.
+#   perf_event_paranoid=-1  : allow collecting all performance counters
+#   kptr_restrict=0         : expose kernel pointer addresses in symbol maps
+# These are system-wide, runtime-only changes (not persisted across reboot).
+relax_perf_restrictions() {
+    log "Relaxing perf restrictions (kernel.perf_event_paranoid=-1, kernel.kptr_restrict=0)"
+    sysctl -w kernel.perf_event_paranoid=-1
+    sysctl -w kernel.kptr_restrict=0
+}
+
+# --- record + archive --------------------------------------------------------
+
+run_record_and_archive() {
+    local -a record_args=("$@")
+    if [[ ${#record_args[@]} -eq 0 ]]; then
+        warn "no 'perf record' args given; using default: ${DEFAULT_RECORD_ARGS[*]}"
+        record_args=("${DEFAULT_RECORD_ARGS[@]}")
+    fi
+
+    log "Running: perf record -o $PERF_DATA ${record_args[*]}"
+    perf record -o "$PERF_DATA" "${record_args[@]}"
+
+    [[ -f "$PERF_DATA" ]] || die "perf record did not produce $PERF_DATA"
+
+    log "Archiving symbols/binaries: perf archive $PERF_DATA"
+    # Older perf wants the data file as an argument; newer accepts none.
+    perf archive "$PERF_DATA" || perf archive
+
+    [[ -f "${PERF_DATA}.tar.bz2" ]] \
+        || die "perf archive did not produce ${PERF_DATA}.tar.bz2"
+}
+
+# --- instructions for machine B ----------------------------------------------
+
+print_remote_instructions() {
+    local host
+    host="$(hostname 2>/dev/null || echo this-machine)"
+
+    cat <<EOF
+
+========================================================================
+ Profile collected on '${host}'. Files produced in $(pwd):
+   - ${PERF_DATA}
+   - ${PERF_DATA}.tar.bz2
+
+ To analyze on another machine (machine B):
+
+   1. Copy both files to machine B:
+        scp ${PERF_DATA} ${PERF_DATA}.tar.bz2 user@machineB:/some/dir/
+
+   2. On machine B, create the debug cache and unpack:
+        mkdir -p ~/.debug
+        perf archive --unpack ${PERF_DATA}.tar.bz2
+
+      NOTE: unpacking archives from a DIFFERENT source machine into the
+      same ~/.debug can clash — clear ~/.debug first in that case.
+
+   3. Analyze:
+        perf report                         # interactive
+        perf report -M intel --no-children  # self time, Intel asm syntax
+
+   4. Stripped binaries show only addresses. Put an UNSTRIPPED copy of the
+      binary at the SAME path it had on '${host}', then re-run perf report.
+
+   Compare two runs:
+        perf diff perf_1.data perf_2.data
+========================================================================
+EOF
+}
+
+# --- main --------------------------------------------------------------------
+
+main() {
+    # Split off record args after the first `--`.
+    local -a record_args=()
+    local seen_sep=0
+    for arg in "$@"; do
+        if [[ $seen_sep -eq 0 && "$arg" == "--" ]]; then
+            seen_sep=1
+            continue
+        fi
+        [[ $seen_sep -eq 1 ]] && record_args+=("$arg")
+    done
+
+    pushd /tmp >/dev/null || die "failed to enter /tmp"
+        ensure_perf_archive
+        relax_perf_restrictions
+        run_record_and_archive "${record_args[@]}"
+        print_remote_instructions
+    popd >/dev/null || die "failed to restore working directory"
+}
+
+main "$@"
 
