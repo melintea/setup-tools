@@ -80,7 +80,7 @@ ensure_perf_archive() {
     [[ -s "$tmp" ]] || die "downloaded perf-archive is empty"
 
     log "Installing to $dest"
-    install -m 0755 "$tmp" "$dest"
+    install -D -m 0755 "$tmp" "$dest"
 
     [[ -x "$dest" ]] \
         || die "perf-archive still not present after install; check $dest and your perf exec path"
