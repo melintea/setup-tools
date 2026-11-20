@@ -12,6 +12,12 @@ set cursorline
 set ruler
 colorscheme evening
 
+set tabstop = 4
+set softtabstop = 4
+set shiftwidth = 4
+set expandtab
+set autoindent
+
 set visualbell
 set incsearch
 set hlsearch
