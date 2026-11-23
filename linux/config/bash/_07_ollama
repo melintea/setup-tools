@@ -4,6 +4,9 @@
 
 # curl -fsSL https://ollama.com/download/ollama-linux-amd64.tar.zst   | tar --zstd -xvf - -C "$HOME/bin/ollama"
 
+if [[ ! -f "$HOME/bin/ollama/bin/ollama" ]]; then
+    return 0
+fi
+
 export PATH="$HOME/bin/ollama/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/bin/ollama/lib/ollama${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-
