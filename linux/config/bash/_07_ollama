@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# https://dev.to/thecodestreet/how-to-use-qwen-3-with-vs-code-free-complete-setup-with-ollama-29f8
+
+# curl -fsSL https://ollama.com/download/ollama-linux-amd64.tar.zst   | tar --zstd -xvf - -C "$HOME/bin/ollama"
+
+export PATH="$HOME/bin/ollama/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/bin/ollama/lib/ollama${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
