@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # https://gist.github.com/Strus/042a92a00070a943053006bf46912ae9
+# How to use clangd C/C++ LSP in any project
 # cmake -S . -G "Unix Makefiles" -B cmake
 
 cmake_minimum_required(VERSION 3.8)

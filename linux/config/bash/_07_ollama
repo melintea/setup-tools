@@ -4,6 +4,16 @@
 
 # curl -fsSL https://ollama.com/download/ollama-linux-amd64.tar.zst   | tar --zstd -xvf - -C "$HOME/bin/ollama"
 
+#1. Install the **Continue** extension in VS Code.
+#2. Open Continue → Settings → Models → Add New Model.
+#3. Set the provider to **Ollama**.
+#4. Fill in:
+#   - **Model ID:** e.g. `qwen2.5-coder:14b`
+#   - **Base URL:** `http://localhost:11434`
+#5. Hit **Save** and you can chat / ask for code help in the Continue
+panel.
+
+
 if [[ ! -f "$HOME/bin/ollama/bin/ollama" ]]; then
     return 0
 fi
